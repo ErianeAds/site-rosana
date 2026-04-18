@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rosana Lima Brito | Mentoria de Carreira Arquitetônica</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
+        .glass-nav { background: rgba(248, 249, 255, 0.8); backdrop-filter: blur(12px); }
+        .satin-button { background: linear-gradient(135deg, #001e40 0%, #003366 100%); }
+        .ghost-border { border: 1px solid rgba(195, 198, 209, 0.15); }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-background": "#0b1c30",
+                "on-primary": "#ffffff",
+                "on-secondary-fixed-variant": "#59430f",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#111c2c",
+                "on-surface-variant": "#43474f",
+                "primary-fixed": "#d5e3ff",
+                "tertiary-container": "#293446",
+                "outline": "#737780",
+                "on-primary-fixed": "#001b3c",
+                "surface-dim": "#cbdbf5",
+                "surface-variant": "#d3e4fe",
+                "inverse-primary": "#a7c8ff",
+                "on-surface": "#0b1c30",
+                "on-secondary-container": "#785f29",
+                "surface-bright": "#f8f9ff",
+                "surface-container-highest": "#d3e4fe",
+                "surface-container-low": "#eff4ff",
+                "primary": "#001e40",
+                "secondary-fixed": "#ffdf9f",
+                "inverse-on-surface": "#eaf1ff",
+                "inverse-surface": "#213145",
+                "on-secondary": "#ffffff",
+                "tertiary": "#141f2f",
+                "on-tertiary-container": "#919cb2",
+                "on-error-container": "#93000a",
+                "secondary-container": "#fddc99",
+                "on-error": "#ffffff",
+                "primary-container": "#003366",
+                "on-tertiary": "#ffffff",
+                "primary-fixed-dim": "#a7c8ff",
+                "surface-tint": "#3a5f94",
+                "secondary-fixed-dim": "#e3c382",
+                "on-tertiary-fixed-variant": "#3c475a",
+                "secondary": "#735b25",
+                "on-primary-container": "#799dd6",
+                "background": "#f8f9ff",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "tertiary-fixed-dim": "#bcc7dd",
+                "outline-variant": "#c3c6d1",
+                "on-primary-fixed-variant": "#1f477b",
+                "surface": "#f8f9ff",
+                "tertiary-fixed": "#d8e3fa",
+                "surface-container-high": "#dce9ff",
+                "surface-container": "#e5eeff",
+                "on-secondary-fixed": "#261a00"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Noto Serif"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold text-blue-900 tracking-tight">Rosana Lima Brito</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-700 transition-colors duration-300" href="#about">About</a>
+<a class="text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-700 transition-colors duration-300" href="#methodology">Methodology</a>
+<a class="text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-700 transition-colors duration-300" href="#services">Services</a>
+<a class="text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-700 transition-colors duration-300" href="#stories">Success Stories</a>
+<a class="satin-button text-on-primary px-6 py-2 rounded shadow-sm text-sm font-semibold tracking-wide hover:opacity-90 transition-all" href="#contact">Book a Consultation</a>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section: The Architectural Authority -->
+<header class="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-7 z-10">
+<span class="inline-block px-4 py-1 mb-6 text-xs font-bold tracking-[0.2em] text-secondary uppercase border-l-2 border-secondary">Estratégia e Carreira</span>
+<h1 class="text-5xl md:text-7xl font-bold text-primary mb-6 leading-[1.1] tracking-tight">
+                    Destrave sua carreira com <span class="italic text-primary-container">estratégia</span> e clareza.
+                </h1>
+<p class="text-xl text-on-surface-variant mb-10 max-w-xl leading-relaxed">
+                    Mentoria personalizada para profissionais que buscam crescimento com propósito, fundamentada em décadas de experiência executiva.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="satin-button text-on-primary px-8 py-4 rounded-lg font-bold tracking-wide shadow-lg hover:translate-y-[-2px] transition-transform">
+                        Agendar Mentoria
+                    </button>
+<button class="px-8 py-4 text-primary font-bold border-b-2 border-secondary-fixed-dim hover:bg-surface-container-low transition-colors">
+                        Conhecer o Método
+                    </button>
+</div>
+</div>
+<div class="md:col-span-5 relative">
+<div class="aspect-[4/5] bg-surface-container rounded-2xl overflow-hidden shadow-2xl transform translate-y-[-20px] md:translate-y-[-40px]">
+<img class="w-full h-full object-cover grayscale-[20%]" data-alt="Professional portrait of a mature female executive with a confident smile in a bright modern office setting with architectural lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtcS6vggz3cpELH4Mmh5VyuBVayKbfqCfkqhnKz868992Ud7iDinwdXc68FktPVNq8OWS2sBQExApaaJeltd5jMZmcdV2bILyfRftKP6_0Gogce8GInRgEZmAbiZBi2kecrKat8lwk7ct1FPXjuKYq8jzdTGqFFwDTsY3MATA0s42TcMZNYDrx6H7Edo1e3sbgLXRTQo2zxqa3eeUAy3jKyEfhN3dIN0vvklbk7rodn9bAn_zBvx3qqBfs1zil4lF0XLTSehGwGkU"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-secondary p-8 rounded-lg shadow-xl hidden md:block">
+<div class="text-on-secondary font-headline text-3xl font-bold">+30</div>
+<div class="text-on-secondary/80 text-xs tracking-widest uppercase mt-1">Anos de Experiência</div>
+</div>
+</div>
+</div>
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-surface-container-low -z-10 opacity-50 skew-x-[-12deg] translate-x-1/2"></div>
+</header>
+<!-- About Section: The Legacy -->
+<section class="py-24 bg-surface-container-low" id="about">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+<div class="order-2 md:order-1">
+<h2 class="text-3xl md:text-5xl font-bold text-primary mb-8 tracking-tight">Tradição executiva aliada à visão de futuro.</h2>
+<div class="space-y-6 text-on-surface-variant leading-relaxed text-lg">
+<p>
+                            Com mais de 30 anos de atuação sólida no setor financeiro, minha trajetória é marcada pela gestão de equipes de alta performance e decisões estratégicas de alto impacto.
+                        </p>
+<p>
+                            Hoje, minha missão é transpor esse conhecimento para profissionais que desejam não apenas subir degraus, mas construir uma fundação sólida e autêntica em suas carreiras.
+                        </p>
+</div>
+<div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
+<div>
+<div class="text-secondary mb-2"><span class="material-symbols-outlined" data-weight="fill">verified</span></div>
+<h4 class="font-bold text-primary text-sm uppercase tracking-wider mb-2">Prática Real</h4>
+<p class="text-sm text-on-surface-variant">Metodologias testadas no campo de batalha executivo.</p>
+</div>
+<div>
+<div class="text-secondary mb-2"><span class="material-symbols-outlined" data-weight="fill">visibility</span></div>
+<h4 class="font-bold text-primary text-sm uppercase tracking-wider mb-2">Visão Estratégica</h4>
+<p class="text-sm text-on-surface-variant">Antecipação de movimentos e posicionamento de mercado.</p>
+</div>
+<div>
+<div class="text-secondary mb-2"><span class="material-symbols-outlined" data-weight="fill">trending_up</span></div>
+<h4 class="font-bold text-primary text-sm uppercase tracking-wider mb-2">Resultados</h4>
+<p class="text-sm text-on-surface-variant">Foco total em evolução tangível e mensurável.</p>
+</div>
+</div>
+</div>
+<div class="order-1 md:order-2">
+<div class="relative">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm ghost-border">
+<img class="w-full aspect-video object-cover rounded" data-alt="Interior of a high-end corporate boardroom with minimalist design and expansive windows overlooking a city skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi5H7AhZuDg12vWM3uGrpqxNMSOeZrBAylOleAG0fCG7uxt30Nsiw4jwC-Uaoko5970Am5GjBOJV2t9F19hZcnlOerhmqyeOBWP64-PAN14Ft_Z2Rt1HZaPmNNRP3MeNUijNECIfLJganm1QAtjVG0D2mXbW4P3DGb0JRIxYXzzn2XsCdVy9kPNzB3fFuKxK18z0pVOt-dXHpIekYchASFjcPoqEozts29PGlBx8drJ-9rEp1WKrDuEvmkd34jGwE_BNUKr3ufnmM"/>
+</div>
+<div class="absolute -top-10 -right-4 w-32 h-32 bg-secondary-container rounded-full mix-blend-multiply opacity-20 -z-10"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services: The Portfolio -->
+<section class="py-24 bg-surface" id="services">
+<div class="max-w-7xl mx-auto px-8">
+<div class="text-center mb-16">
+<span class="text-secondary font-bold tracking-[0.3em] text-xs uppercase">Como posso te ajudar</span>
+<h2 class="text-4xl font-bold text-primary mt-4">Soluções Sob Medida</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Mentoria Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl ghost-border hover:shadow-2xl transition-all duration-500 flex flex-col border-t-4 border-transparent hover:border-secondary">
+<div class="mb-6 bg-surface-container-low w-14 h-14 rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">psychology</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Mentoria de Carreira</h3>
+<p class="text-on-surface-variant text-sm mb-8 flex-grow">Acompanhamento contínuo para quem deseja acelerar sua evolução profissional com segurança.</p>
+<button class="text-secondary font-bold text-sm flex items-center group-hover:underline underline-offset-4">
+                        Quero saber mais <span class="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+</button>
+</div>
+<!-- Planejamento Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl ghost-border hover:shadow-2xl transition-all duration-500 flex flex-col border-t-4 border-transparent hover:border-secondary">
+<div class="mb-6 bg-surface-container-low w-14 h-14 rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">map</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Planejamento Profissional</h3>
+<p class="text-on-surface-variant text-sm mb-8 flex-grow">Construção de um roadmap detalhado para atingir seus objetivos de curto e longo prazo.</p>
+<button class="text-secondary font-bold text-sm flex items-center group-hover:underline underline-offset-4">
+                        Quero saber mais <span class="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+</button>
+</div>
+<!-- Transição Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl ghost-border hover:shadow-2xl transition-all duration-500 flex flex-col border-t-4 border-transparent hover:border-secondary">
+<div class="mb-6 bg-surface-container-low w-14 h-14 rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">sync_alt</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Transição de Carreira</h3>
+<p class="text-on-surface-variant text-sm mb-8 flex-grow">Estratégias seguras para mudar de área ou setor mantendo sua relevância no mercado.</p>
+<button class="text-secondary font-bold text-sm flex items-center group-hover:underline underline-offset-4">
+                        Quero saber mais <span class="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+</button>
+</div>
+<!-- Liderança Card -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl ghost-border hover:shadow-2xl transition-all duration-500 flex flex-col border-t-4 border-transparent hover:border-secondary">
+<div class="mb-6 bg-surface-container-low w-14 h-14 rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">groups</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Desenvolvimento de Liderança</h3>
+<p class="text-on-surface-variant text-sm mb-8 flex-grow">Preparação para assumir cargos de alta gestão e inspirar equipes rumo ao sucesso.</p>
+<button class="text-secondary font-bold text-sm flex items-center group-hover:underline underline-offset-4">
+                        Quero saber mais <span class="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Executive Pull-Quote -->
+<section class="py-12">
+<div class="max-w-7xl mx-auto px-8">
+<div class="bg-surface-container-high p-16 rounded-2xl relative overflow-hidden text-center md:text-left">
+<span class="material-symbols-outlined text-7xl text-secondary-fixed-dim absolute top-8 left-8 opacity-40" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<h3 class="text-3xl md:text-4xl font-headline italic text-primary leading-tight relative z-10">
+                    "Carreira não é sobre sorte, é sobre a convergência entre oportunidade e preparo estratégico."
+                </h3>
+<p class="mt-6 font-bold text-secondary uppercase tracking-widest text-sm relative z-10">— Rosana Lima Brito</p>
+</div>
+</div>
+</section>
+<!-- Process: The Methodology -->
+<section class="py-24 bg-surface-container-lowest" id="methodology">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-16">
+<h2 class="text-4xl font-bold text-primary mb-4">O Caminho para a Excelência</h2>
+<p class="text-on-surface-variant max-w-2xl">Um método estruturado em quatro pilares fundamentais para garantir que cada passo seja consciente e produtivo.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="relative">
+<div class="text-6xl font-headline font-bold text-surface-container mb-6">01</div>
+<h4 class="text-xl font-bold text-primary mb-3">Diagnóstico</h4>
+<p class="text-sm text-on-surface-variant">Análise profunda do seu momento atual, competências e barreiras invisíveis.</p>
+</div>
+<div class="relative">
+<div class="text-6xl font-headline font-bold text-surface-container mb-6">02</div>
+<h4 class="text-xl font-bold text-primary mb-3">Planejamento</h4>
+<p class="text-sm text-on-surface-variant">Criação de metas claras e do plano de ação tático para alcançá-las.</p>
+</div>
+<div class="relative">
+<div class="text-6xl font-headline font-bold text-surface-container mb-6">03</div>
+<h4 class="text-xl font-bold text-primary mb-3">Execução</h4>
+<p class="text-sm text-on-surface-variant">Acompanhamento direto na implementação das estratégias no dia a dia.</p>
+</div>
+<div class="relative">
+<div class="text-6xl font-headline font-bold text-surface-container mb-6">04</div>
+<h4 class="text-xl font-bold text-primary mb-3">Follow-up</h4>
+<p class="text-sm text-on-surface-variant">Ajustes finos e análise de resultados para sustentabilidade do crescimento.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials: The Proof -->
+<section class="py-24 bg-surface" id="stories">
+<div class="max-w-7xl mx-auto px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-primary">Histórias de Sucesso</h2>
+<p class="text-on-surface-variant mt-4">Depoimentos de quem transformou o potencial em realidade.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="bg-surface-container-low p-8 rounded-xl shadow-sm">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Professional headshot of a businessman in a suit with a warm and approachable expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcUFDcWeK9UhVmPtt8bpAT3JlvGFzHGAwpFIIFJsmUqIAx9BC7_6vOcq0I-O518o4MryqjZ4Wv6R6w9XisdJSqxH_FBR3sX6wQPxXSQPtelfTB6uioqtHiiNJJM5JwuJDVAaQ9Ek-7LQbqapUJ65MntXgaIR3naT_BONlBr-GeG1z4kRt2mSCnHueuyhpqYrX7ZnJoUkeBBIifdIbtu_6FVky1SKnXzY7cmZI_HcVyT1Co9yoRYqRRhRX-Al-eMWMM-TdoDk0yE_o"/>
+<div>
+<p class="font-bold text-primary text-sm">Ricardo Mendes</p>
+<p class="text-xs text-on-surface-variant">Diretor de Operações</p>
+</div>
+</div>
+<p class="italic text-on-surface-variant leading-relaxed">"A mentoria com a Rosana foi o divisor de águas que eu precisava. Ela trouxe uma clareza executiva que eu não conseguia ter sozinho."</p>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-container-low p-8 rounded-xl shadow-sm border-t-4 border-secondary">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Candid portrait of a professional woman looking thoughtful and confident in a studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhwfNgfgeOJyD-KvZ-7nLxhzK4ThEV7e-5f9h-IIo_cC-ihw9IokKKQ1bXDRAbS1u3gfNnwdWg0wtaoIqdoN3eSb2isObrlS7McOKpz3SW8KU5q6sUNVnsdnUrL4q_QcqHNJIsceeDhT3cVQWI8Zyx9LqE3K2HrDcSylQTDNUzlnQ5haxMaiGekPyVyXeg8FVSOWbUtR-t_rXcwBWrzWjJ24JwUUxbFRNCLNxdY5_5L86x-nzaH2U63Nb4f8_5_tHeDTx26UW-ZKg"/>
+<div>
+<p class="font-bold text-primary text-sm">Luciana Duarte</p>
+<p class="text-xs text-on-surface-variant">Gerente de Marketing</p>
+</div>
+</div>
+<p class="italic text-on-surface-variant leading-relaxed">"Transição de carreira é assustador, mas com o apoio estratégico da Rosana, consegui me reposicionar em 4 meses no mercado."</p>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-surface-container-low p-8 rounded-xl shadow-sm">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Studio portrait of a middle-aged male professional with a confident and serious gaze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs8jKNmgMc5-JNvo8flzKvnPMSZHd0z4471pSg3MVooiYZhj5R16KIUBBY1_ngWgS62e7DTs9DOh_mbsmRB7E7gohyogeDvvIgo9Ji14MD3Hj9MrPE6Wz6nxj_ESa84RiDgPrMI87lxnjP1hrUImF1OoxbUcmVFgbQsCrLJMaFk5I3j-EAMa215u3WgseIUMs0a_n66dvfnLBE3idKcm_mpzlyNTdmecs100liho50nR53C8rKiEg_CKIA3j8EFqmkvQvyZnKS-IU"/>
+<div>
+<p class="font-bold text-primary text-sm">Felipe Castro</p>
+<p class="text-xs text-on-surface-variant">Executivo de Vendas</p>
+</div>
+</div>
+<p class="italic text-on-surface-variant leading-relaxed">"O olhar apurado dela para o posicionamento de mercado é único. Recomendo para qualquer líder que queira chegar ao próximo nível."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Results: The Benefits Bento -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[500px]">
+<div class="md:col-span-2 md:row-span-2 bg-primary p-12 rounded-2xl flex flex-col justify-end text-on-primary relative overflow-hidden">
+<span class="material-symbols-outlined text-9xl absolute -top-10 -right-10 opacity-10">insights</span>
+<h3 class="text-3xl font-bold mb-4">Clareza e Propósito</h3>
+<p class="opacity-80">Entenda exatamente para onde sua carreira deve ir e como cada ação contribui para o seu legado profissional.</p>
+</div>
+<div class="md:col-span-1 md:row-span-1 bg-surface-container-lowest p-8 rounded-2xl ghost-border flex flex-col justify-center">
+<span class="material-symbols-outlined text-secondary mb-4">security</span>
+<h4 class="font-bold text-primary">Confiança</h4>
+<p class="text-xs text-on-surface-variant mt-2">Segurança para tomar decisões difíceis.</p>
+</div>
+<div class="md:col-span-1 md:row-span-1 bg-secondary p-8 rounded-2xl text-on-secondary flex flex-col justify-center">
+<span class="material-symbols-outlined mb-4" style="font-variation-settings: 'FILL' 1;">stars</span>
+<h4 class="font-bold">Posicionamento</h4>
+<p class="text-xs opacity-90 mt-2">Destaque-se em um mercado altamente competitivo.</p>
+</div>
+<div class="md:col-span-2 md:row-span-1 bg-surface-container p-8 rounded-2xl flex items-center gap-6">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">ads_click</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Plano de Carreira Ativo</h4>
+<p class="text-sm text-on-surface-variant">Saia da inércia com um roadmap de crescimento validado.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact & Final CTA -->
+<section class="py-24 bg-surface-container-lowest" id="contact">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+<div>
+<h2 class="text-4xl font-bold text-primary mb-6">Pronta para dar o próximo passo na sua carreira?</h2>
+<p class="text-lg text-on-surface-variant mb-12">Preencha o formulário para agendarmos uma sessão inicial de diagnóstico ou entre em contato diretamente pelos canais oficiais.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<span class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm">mail</span>
+</span>
+<span class="text-primary font-medium">contato@rosanalimabrito.com</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm">call</span>
+</span>
+<span class="text-primary font-medium">+55 (11) 99999-9999</span>
+</div>
+</div>
+<div class="mt-12 flex gap-4">
+<a class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center hover:bg-secondary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:text-on-secondary-fixed">share</span>
+</a>
+<a class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center hover:bg-secondary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:text-on-secondary-fixed">diversity_3</span>
+</a>
+</div>
+</div>
+<div class="bg-surface-container-low p-10 rounded-2xl shadow-sm">
+<form action="#" class="space-y-6">
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Seu Nome Completo</label>
+<input class="w-full bg-transparent border-b border-outline/30 py-3 focus:outline-none focus:border-primary transition-colors" placeholder="Ex: Ana Silva" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">E-mail Corporativo</label>
+<input class="w-full bg-transparent border-b border-outline/30 py-3 focus:outline-none focus:border-primary transition-colors" placeholder="ana@empresa.com" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Cargo Atual</label>
+<input class="w-full bg-transparent border-b border-outline/30 py-3 focus:outline-none focus:border-primary transition-colors" placeholder="Ex: Gerente de Projetos" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Como posso te ajudar?</label>
+<textarea class="w-full bg-transparent border-b border-outline/30 py-3 focus:outline-none focus:border-primary transition-colors resize-none" placeholder="Descreva brevemente seu desafio atual..." rows="4"></textarea>
+</div>
+<button class="w-full satin-button text-on-primary py-4 rounded-lg font-bold tracking-widest uppercase text-sm shadow-md hover:shadow-xl transition-all" type="submit">
+                            Agendar Sessão
+                        </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Shell -->
+<footer class="bg-slate-100 py-12">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 max-w-7xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-bold text-blue-900">Rosana Lima Brito</div>
+<p class="text-sm text-slate-500 leading-relaxed max-w-xs">Mentoria executiva para profissionais que buscam o próximo nível com excelência e integridade.</p>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Links Rápidos</h4>
+<ul class="space-y-3 text-sm text-slate-500">
+<li><a class="hover:underline decoration-yellow-700 decoration-2 underline-offset-4" href="#">LinkedIn</a></li>
+<li><a class="hover:underline decoration-yellow-700 decoration-2 underline-offset-4" href="#">WhatsApp</a></li>
+<li><a class="hover:underline decoration-yellow-700 decoration-2 underline-offset-4" href="#">Privacy Policy</a></li>
+<li><a class="hover:underline decoration-yellow-700 decoration-2 underline-offset-4" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Localização</h4>
+<p class="text-sm text-slate-500 mb-4">Atendimento presencial (São Paulo) e online para todo o Brasil.</p>
+<div class="h-32 w-full rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover opacity-50 grayscale" data-alt="Stylized map view of a modern urban city district with high-rise buildings and organized grid layout" data-location="São Paulo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSTdHIscatYEcOR_AT4lAKMGlWgpgv8IaMBvgRIIq-ZknvkiR__79FuIxuBv3DXtJggY5lStSQMnLq68QMM2ywDuxyvPlAYo4rHPcbUWERnCRBm3wJ9MNhFXcNowgVJWLzL7xwyWWY4Dh5e1YFscDRPPMDSjwRBx6M3ctrniTXwphm5pImml3nCtwb4y_-Y0xOIWSNbBX_PAXtkpr8yDIbpaa3m-ZbVyjWfI46z7Oqhfpbgucoru-IhfBbBxaMVSNZWl27Qbrl7Xc"/>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-slate-200">
+<p class="text-xs text-slate-400 text-center">© 2024 Rosana Lima Brito. Architectural Career Mentorship. All rights reserved.</p>
+</div>
+</footer>
+<!-- Sticky WhatsApp Button -->
+<a class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-[100]" href="#">
+<svg fill="currentColor" height="32" viewbox="0 0 16 16" width="32" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93a7.898 7.898 0 0 0-2.322-5.607L13.601 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+</svg>
+</a>
+</body></html>
