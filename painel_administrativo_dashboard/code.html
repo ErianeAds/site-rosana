@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Distinction | Principal Mentor Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "on-secondary-fixed": "#261a00",
+                    "tertiary-fixed-dim": "#bcc7dd",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fddc99",
+                    "tertiary-fixed": "#d8e3fa",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#735b25",
+                    "on-primary-container": "#799dd6",
+                    "on-surface-variant": "#43474f",
+                    "secondary-fixed-dim": "#e3c382",
+                    "primary-fixed": "#d5e3ff",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-fixed-variant": "#59430f",
+                    "surface": "#f8f9ff",
+                    "on-background": "#0b1c30",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "surface-tint": "#3a5f94",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-primary-fixed": "#001b3c",
+                    "inverse-primary": "#a7c8ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "surface-dim": "#cbdbf5",
+                    "primary": "#001e40",
+                    "surface-bright": "#f8f9ff",
+                    "on-tertiary-container": "#919cb2",
+                    "outline-variant": "#c3c6d1",
+                    "on-error-container": "#93000a",
+                    "outline": "#737780",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "tertiary": "#141f2f",
+                    "on-surface": "#0b1c30",
+                    "on-primary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "on-tertiary-fixed": "#111c2c",
+                    "inverse-surface": "#213145",
+                    "primary-container": "#003366",
+                    "on-secondary-container": "#785f29",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "surface-variant": "#d3e4fe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; color: #0b1c30; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar Component -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-slate-50 dark:bg-slate-950 flex flex-col py-8 gap-y-2 z-40 border-r-0 bg-slate-100">
+<div class="px-6 mb-10 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img alt="Rosana's profile picture" class="w-full h-full object-cover" data-alt="Professional headshot of an executive mentor with a confident expression, soft office lighting, and corporate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj2sF_awC0xiSnE-x2QSRCmOzid0TnnwH8Tee-yskYs3gUxkBUg6Xk-oscCsNCRr5yxbMPKRgDjucgfIvh5dyY8N2TUQxE4r57BH2oIfOnj0GsCso3lQs_RXSriSKboU-sEDMMnP1Mu8Fx2rOcYBQc87TE1rHU3PSLtl7ucpXuMkrKP8IcXQzs0TPDYZnkdAI5IVtnp9zc6954MlWhjDT4ObZ0wgM7z60YgrbZqkINMb5i-OFwsCeQbjxm5s-04WmovfceC6FZzAM"/>
+</div>
+<div>
+<h1 class="font-serif text-lg font-bold text-blue-950">Rosana</h1>
+<p class="font-sans text-xs tracking-wide text-slate-500">Principal Mentor</p>
+</div>
+</div>
+<div class="flex-grow space-y-1">
+<a class="bg-white text-blue-900 border-l-4 border-amber-700 px-6 py-3 font-bold flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-slate-500 px-6 py-3 hover:bg-slate-100 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span>Agenda</span>
+</a>
+<a class="text-slate-500 px-6 py-3 hover:bg-slate-100 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Finance</span>
+</a>
+<a class="text-slate-500 px-6 py-3 hover:bg-slate-100 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings_account_box">settings_account_box</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-md flex items-center justify-center gap-2 font-medium shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Entry
+            </button>
+<div class="mt-6 pt-6 border-t border-slate-200">
+<a class="text-slate-500 px-0 py-2 hover:text-blue-900 transition-colors flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+<a class="text-slate-500 px-0 py-2 hover:text-red-700 transition-colors flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 p-10 max-w-7xl mx-auto w-full">
+<!-- Header -->
+<header class="mb-12 flex justify-between items-end">
+<div>
+<span class="text-xs font-semibold tracking-[0.2em] text-secondary uppercase font-label">Principal Overview</span>
+<h2 class="text-4xl font-serif font-bold text-primary mt-2 tracking-tight">Executive Insight</h2>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<p class="text-xs text-outline font-medium">LATEST UPDATE</p>
+<p class="text-sm font-semibold text-primary">Oct 24, 2023 · 09:42 AM</p>
+</div>
+</div>
+</header>
+<!-- Row 1: KPI Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)] border-t-4 border-secondary">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+12.5%</span>
+</div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Total Revenue</p>
+<p class="text-2xl font-serif font-bold text-primary">$482,900</p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+4.2%</span>
+</div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Monthly Revenue</p>
+<p class="text-2xl font-serif font-bold text-primary">$42,150</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+<span class="text-xs font-bold text-primary bg-primary-fixed px-2 py-1 rounded">Active</span>
+</div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Total Mentorships</p>
+<p class="text-2xl font-serif font-bold text-primary">124</p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="confirmation_number">confirmation_number</span>
+<span class="text-xs font-bold text-secondary">Premium</span>
+</div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Average Ticket</p>
+<p class="text-2xl font-serif font-bold text-primary">$3,890</p>
+</div>
+</section>
+<!-- Row 2: Analytics Graphs (Streamlit Inspired) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-lg font-serif font-bold text-primary">Revenue Velocity</h3>
+<div class="flex gap-2">
+<button class="text-xs font-bold px-3 py-1 bg-primary text-white rounded">6M</button>
+<button class="text-xs font-bold px-3 py-1 text-primary hover:bg-white rounded transition-colors">1Y</button>
+</div>
+</div>
+<!-- Mock Chart Area -->
+<div class="h-64 flex items-end justify-between gap-2 px-2">
+<div class="w-full bg-primary/10 rounded-t-sm h-[40%] hover:bg-primary/20 transition-all"></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-[55%] hover:bg-primary/20 transition-all"></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-[45%] hover:bg-primary/20 transition-all"></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-[70%] hover:bg-primary/20 transition-all"></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-[85%] hover:bg-primary/20 transition-all"></div>
+<div class="w-full bg-secondary/80 rounded-t-sm h-[95%] shadow-lg"></div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-[10px] font-bold text-outline tracking-widest uppercase">
+<span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-lg font-serif font-bold text-primary">Appointment Volume</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-xs font-bold text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Consults
+                        </span>
+<span class="flex items-center gap-1 text-xs font-bold text-outline">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Follow-ups
+                        </span>
+</div>
+</div>
+<!-- Mock Area Chart -->
+<div class="relative h-64 w-full">
+<svg class="w-full h-full" viewbox="0 0 400 200">
+<path d="M0 150 Q 50 130, 100 140 T 200 80 T 300 100 T 400 40 L 400 200 L 0 200 Z" fill="rgba(0, 30, 64, 0.05)"></path>
+<path d="M0 150 Q 50 130, 100 140 T 200 80 T 300 100 T 400 40" fill="none" stroke="#001e40" stroke-width="2"></path>
+<circle cx="200" cy="80" fill="#735b25" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-outline tracking-widest uppercase">
+<span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span>
+</div>
+</div>
+</section>
+<!-- Row 3: Recent Appointments List -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)] overflow-hidden">
+<div class="p-8 border-b border-surface-container flex justify-between items-center">
+<h3 class="text-xl font-serif font-bold text-primary">Executive Agenda</h3>
+<button class="text-sm font-bold text-primary border-b-2 border-secondary pb-0.5 hover:text-secondary transition-colors">View All Schedule</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-[10px] font-bold text-outline uppercase tracking-[0.2em]">
+<th class="px-8 py-4">Student Name</th>
+<th class="px-8 py-4">Session Date</th>
+<th class="px-8 py-4">Time Window</th>
+<th class="px-8 py-4">Status</th>
+<th class="px-8 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-xs">AJ</div>
+<span class="font-semibold text-primary">Alexander Janson</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">Oct 25, 2023</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">09:00 AM — 10:30 AM</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-green-50 text-green-700">
+<span class="w-1 h-1 rounded-full bg-green-700"></span> PAID
+                                </span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-md text-primary" title="Edit Session">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-md text-error" title="Cancel Session">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-xs">SM</div>
+<span class="font-semibold text-primary">Sarah Miller</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">Oct 25, 2023</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">11:00 AM — 12:00 PM</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
+<span class="w-1 h-1 rounded-full bg-amber-700"></span> PENDING
+                                </span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-md text-primary" title="Edit Session">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-md text-error" title="Cancel Session">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs">DC</div>
+<span class="font-semibold text-primary">David Chen</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">Oct 26, 2023</td>
+<td class="px-8 py-5 text-sm font-medium text-on-surface-variant">02:00 PM — 03:30 PM</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-green-50 text-green-700">
+<span class="w-1 h-1 rounded-full bg-green-700"></span> PAID
+                                </span>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-md text-primary" title="Edit Session">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-md text-error" title="Cancel Session">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low/50 flex justify-center">
+<button class="text-xs font-bold text-outline hover:text-primary tracking-widest flex items-center gap-1">
+                    LOAD MORE RECORDS <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Executive Pull-Quote / Insight of the Day -->
+<section class="mt-16 bg-surface-container-high p-12 rounded-xl relative overflow-hidden">
+<span class="material-symbols-outlined absolute top-6 left-6 text-6xl text-secondary-fixed-dim/20" data-icon="format_quote" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<div class="relative z-10 max-w-3xl">
+<h4 class="text-2xl font-serif italic text-primary leading-relaxed">
+                    "True executive leadership is not defined by the speed of the decision, but by the architectural clarity of the vision that precedes it."
+                </h4>
+<p class="mt-6 text-sm font-bold tracking-widest text-secondary uppercase">— Principal Mentor Insights</p>
+</div>
+<!-- Decorative image element -->
+<div class="absolute right-[-5%] top-[-20%] w-64 h-64 bg-secondary opacity-5 rounded-full blur-3xl"></div>
+</section>
+</main>
+</body></html>

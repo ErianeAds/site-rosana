@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Finance &amp; Reports | Executive Distinction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#261a00",
+                        "tertiary-fixed-dim": "#bcc7dd",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fddc99",
+                        "tertiary-fixed": "#d8e3fa",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#735b25",
+                        "on-primary-fixed": "#001b3c",
+                        "inverse-primary": "#a7c8ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-dim": "#cbdbf5",
+                        "primary": "#001e40",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-container": "#919cb2",
+                        "outline-variant": "#c3c6d1",
+                        "on-error-container": "#93000a",
+                        "outline": "#737780",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "tertiary": "#141f2f",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed": "#111c2c",
+                        "inverse-surface": "#213145",
+                        "primary-container": "#003366",
+                        "on-secondary-container": "#785f29",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 dark:bg-slate-950 flex flex-col h-full py-8 gap-y-2 z-50">
+<div class="px-6 mb-10">
+<span class="font-serif text-lg font-bold text-blue-950 dark:text-white">Executive Distinction</span>
+</div>
+<nav class="flex-1 flex flex-col gap-y-1">
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-900/50 flex items-center gap-3 transition-colors font-sans text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-900/50 flex items-center gap-3 transition-colors font-sans text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+                Agenda
+            </a>
+<a class="bg-white dark:bg-slate-900 text-blue-900 dark:text-amber-500 border-l-4 border-amber-700 px-6 py-3 font-bold flex items-center gap-3 font-sans text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+                Finance
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:bg-slate-100 dark:hover:bg-slate-900/50 flex items-center gap-3 transition-colors font-sans text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="settings_account_box">settings_account_box</span>
+                Settings
+            </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-md py-3 font-semibold text-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Entry
+            </button>
+</div>
+<div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
+<div class="px-6 flex items-center gap-3 mb-6">
+<img alt="Rosana's profile picture" class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a woman executive in a tailored navy blazer with soft studio lighting and a neutral grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjihE90foAmcCbijPocU7Vqr59egZPXqJD5-83lOXZYB05vaEX_nR6QahheftzxfZJiL0I7j-wmET0TAl46waO74LdHcdor9HKFpcKImh9zFIL3twmZSbcRUFOP5nHdtt1UXKhvrErcSH6h0bupvpw0Vu3uiPE3YK7PsQC2ekNpD13powZbd4gjwKut3zFoKSU37M-77qie02vvao57R9YIHUGm93xpE29dAV8T7forhHyGBjqtVMdB9ioE45gdilZC9Dr4nBJu4Y"/>
+<div>
+<p class="font-bold text-sm text-blue-950 dark:text-white">Rosana</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Principal Mentor</p>
+</div>
+</div>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-2 hover:bg-slate-100 dark:hover:bg-slate-900/50 flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+                Support
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-2 hover:bg-slate-100 dark:hover:bg-slate-900/50 flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 flex-1 p-10 pb-20">
+<!-- Header & Editorial Title -->
+<header class="flex justify-between items-end mb-12">
+<div class="max-w-2xl">
+<span class="text-secondary font-bold text-xs tracking-[0.2em] uppercase block mb-4">Financial Ledger</span>
+<h1 class="text-5xl font-bold text-primary tracking-tighter mb-2">Portfolio Economics</h1>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-lg">Comprehensive oversight of mentorship revenue, transaction health, and fiscal distribution for the current quarter.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 border-2 border-outline-variant text-primary font-semibold rounded-lg hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                    Advanced Filters
+                </button>
+<button class="px-6 py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-opacity-90 shadow-lg flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Export Report
+                </button>
+</div>
+</header>
+<!-- KPI Cards & Asymmetric Data Viz Section -->
+<section class="grid grid-cols-12 gap-8 mb-12">
+<!-- Net Revenue Card -->
+<div class="col-span-4 bg-primary text-white p-8 rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)] flex flex-col justify-between">
+<div>
+<span class="text-primary-fixed-dim text-xs tracking-widest uppercase mb-6 block">Total Net Revenue</span>
+<h2 class="text-4xl font-bold font-headline">$142,500.00</h2>
+</div>
+<div class="flex items-center gap-2 mt-8 text-secondary-fixed-dim">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="text-sm font-medium">+12.4% vs last period</span>
+</div>
+</div>
+<!-- Distribution Charts (Bento Style) -->
+<div class="col-span-8 grid grid-cols-2 gap-6 bg-surface-container-low p-6 rounded-xl">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border-t-4 border-secondary">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-lg font-bold text-primary">Payment Status</h3>
+<span class="material-symbols-outlined text-outline" data-icon="pie_chart">pie_chart</span>
+</div>
+<!-- Mock Donut Chart using CSS -->
+<div class="flex items-center gap-8">
+<div class="relative w-24 h-24 rounded-full border-[12px] border-surface-container" style="background: conic-gradient(#001e40 0% 75%, #e3c382 75% 100%);"></div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-semibold text-on-surface">Paid (75%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></div>
+<span class="text-xs font-semibold text-on-surface">Pending (25%)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-lg font-bold text-primary">Mentorship Types</h3>
+<span class="material-symbols-outlined text-outline" data-icon="bar_chart">bar_chart</span>
+</div>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-medium text-on-surface-variant uppercase tracking-tighter">Executive Leadership</span>
+<span class="font-bold text-primary">$84k</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-medium text-on-surface-variant uppercase tracking-tighter">Strategic Consulting</span>
+<span class="font-bold text-primary">$42k</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[35%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-medium text-on-surface-variant uppercase tracking-tighter">Career Transition</span>
+<span class="font-bold text-primary">$16.5k</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Filters Strip -->
+<section class="bg-white p-6 mb-8 flex flex-wrap items-center gap-8 rounded-xl shadow-[0_2px_15px_rgba(0,0,0,0.02)]">
+<div class="flex flex-col">
+<label class="text-[10px] font-bold text-outline uppercase tracking-widest mb-1">Period</label>
+<select class="bg-transparent border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary text-sm font-semibold text-primary py-1 px-0">
+<option>Q3 Fiscal Year 2023</option>
+<option>Q2 Fiscal Year 2023</option>
+<option>Q1 Fiscal Year 2023</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-[10px] font-bold text-outline uppercase tracking-widest mb-1">Mentorship Type</label>
+<select class="bg-transparent border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary text-sm font-semibold text-primary py-1 px-0">
+<option>All Mentorships</option>
+<option>Executive Leadership</option>
+<option>Strategic Consulting</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-[10px] font-bold text-outline uppercase tracking-widest mb-1">Payment Status</label>
+<select class="bg-transparent border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary text-sm font-semibold text-primary py-1 px-0">
+<option>All Statuses</option>
+<option>Paid</option>
+<option>Pending</option>
+<option>Overdue</option>
+</select>
+</div>
+<div class="ml-auto">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-8 bg-transparent border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary text-sm w-64 py-1" placeholder="Search student or transaction ID..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Financial Transactions Ledger -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_12px_40px_rgba(11,28,48,0.04)]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Student &amp; Reference</th>
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Date / Session</th>
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Mentorship Program</th>
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Amount</th>
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-center">Status</th>
+<th class="px-8 py-5 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Student avatar" class="w-10 h-10 rounded-lg object-cover" data-alt="Close-up portrait of a young professional man in a white shirt, clean lighting, focused expression, corporate aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP8tt4o5dRUBFvIAKzv3FoaQUN_VhQMz8OnYZwZeQaixkW6VqJD3CiBpKCw-PazwYghTVOjIi-diZGYK1ctzhcTN5Rg7YyW6MPRuvW0hzo7iB723CtLhzF924tSk76T0LRBoz7COrCMaakmnubwUDFHhMBbjEal-hyRSPMb3Ks5jXoF_F7olunPfkV3QiX5oP11uUU255xN5PtHobsRdBEB_qLuaBekA3XP_1pw7cQK5ouic8ijpRTuX1g3D7s4XpzoCKVKWkaZpc"/>
+<div>
+<p class="font-bold text-primary">Julian Sterling</p>
+<p class="text-[10px] text-outline-variant font-mono">INV-2023-0892</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<p class="text-sm font-semibold text-primary">Oct 12, 2023</p>
+<p class="text-xs text-on-surface-variant">Q3 Strategy Review</p>
+</td>
+<td class="px-8 py-6">
+<span class="inline-block px-3 py-1 bg-surface-container text-primary text-[10px] font-bold rounded uppercase tracking-wider">Executive Leadership</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="font-bold text-primary font-headline">$4,500.00</p>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                                Settled
+                            </span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Student avatar" class="w-10 h-10 rounded-lg object-cover" data-alt="Modern professional woman with glasses in a minimalist office environment, soft natural window light, executive portrait style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb1mRIOi_oaphkc_qPtUQGq01YT5Kump1CAAMlvArWBYKN4rvXUJcELfQQ2bncsuVx85ZdLrowBmkEEYRSLSQrrk4hQZO1Nelh8OdZqUOVSfndHaSQPPa06JNRLKsq0fF2hRpS4xP05HTmYB_oF4TFceZf8e46WDRxBqLcWh56BNVLIFeUgeK4X1c7eBOFwuIQpU8qk6ljsLhnVWV3EivZJmQeUYaERNaLwJCcTMqTTF98nDaN9u-S7CMYUYEbCo7aHLgYRuzaU0k"/>
+<div>
+<p class="font-bold text-primary">Elena Rodriguez</p>
+<p class="text-[10px] text-outline-variant font-mono">INV-2023-0895</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<p class="text-sm font-semibold text-primary">Oct 14, 2023</p>
+<p class="text-xs text-on-surface-variant">Boardroom Readiness</p>
+</td>
+<td class="px-8 py-6">
+<span class="inline-block px-3 py-1 bg-surface-container text-primary text-[10px] font-bold rounded uppercase tracking-wider">Strategic Consulting</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="font-bold text-primary font-headline">$3,200.00</p>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+<span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                                Pending
+                            </span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Student avatar" class="w-10 h-10 rounded-lg object-cover" data-alt="Middle-aged executive man smiling warmly in a dark suit, soft out-of-focus background of a corporate lobby, professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm1N2SfMCkz_Wz-S-XBCrXkoITRBBsCjvVx_Kpa-79xrH64I8KzsAq1rl6Zk0FCX9olpbr9VLIgPjcoKASRtQKIAnhXESvWOfnMB6DhyWfCZGhi0LtwEybxpTp9pVnW2Q0fo0qePg1secq_ywWyLy7iTyNvn1oDsVu476NepZTJtfR6kkZOKe0jzGA92EZdplRlsMsuj626RMz-RfHM6Bdh8Bq2uMlrjaReOcLAp5OOXbm5jAwW15nPQChqvOQ61m3lKZhyI37mss"/>
+<div>
+<p class="font-bold text-primary">Marcus Thorne</p>
+<p class="text-[10px] text-outline-variant font-mono">INV-2023-0901</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<p class="text-sm font-semibold text-primary">Oct 18, 2023</p>
+<p class="text-xs text-on-surface-variant">Legacy Development</p>
+</td>
+<td class="px-8 py-6">
+<span class="inline-block px-3 py-1 bg-surface-container text-primary text-[10px] font-bold rounded uppercase tracking-wider">Executive Leadership</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="font-bold text-primary font-headline">$12,000.00</p>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                                Settled
+                            </span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Student avatar" class="w-10 h-10 rounded-lg object-cover" data-alt="Confident female entrepreneur sitting in a bright airy office, looking towards camera, warm tones and high-key lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTaIc5mwpZEPZ--F8OBRS70lMNgBcP6kjMxL4Tah_m4Q4vI9EU6JwfsUOxkEc5QgJ33-OsLIRo8XBjM7BeLcv0ZBdFtrmVQjJuaJnCfwk1wFNWBWIURUBEISyAbsFPdhe_ex5wlxD1XK7XYtXkDlcONYBLmDaZstRvJj6hBfJrlIUziCtPA72VVGN7xf-xVgXbUrS4iymKosR8BDGsIJtnMYdYoXwnvT8AbOSslvZ9QsKMjeNGz2eGpdu-iTBPMZ3717HE6L4aLGE"/>
+<div>
+<p class="font-bold text-primary">Sophia Chen</p>
+<p class="text-[10px] text-outline-variant font-mono">INV-2023-0912</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<p class="text-sm font-semibold text-primary">Oct 20, 2023</p>
+<p class="text-xs text-on-surface-variant">Global Market Entry</p>
+</td>
+<td class="px-8 py-6">
+<span class="inline-block px-3 py-1 bg-surface-container text-primary text-[10px] font-bold rounded uppercase tracking-wider">Strategic Consulting</span>
+</td>
+<td class="px-8 py-6 text-right">
+<p class="font-bold text-primary font-headline">$5,800.00</p>
+</td>
+<td class="px-8 py-6 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+<span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                                Overdue
+                            </span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-surface-container-low px-8 py-4 flex justify-between items-center">
+<p class="text-xs text-on-surface-variant">Showing 4 of 124 transactions</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 border border-outline-variant rounded hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Signature Pull Quote -->
+<section class="mt-20 px-12 py-16 bg-surface-container-high rounded-xl relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
+<div class="absolute top-0 left-0 w-24 h-24 bg-secondary/10 -translate-x-12 -translate-y-12 rounded-full"></div>
+<div class="relative z-10 max-w-xl">
+<span class="material-symbols-outlined text-secondary text-5xl mb-6 block" data-icon="format_quote" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="text-3xl font-headline italic text-primary leading-tight">
+                    "Fiscal integrity is not just about balancing the ledger; it is about providing a transparent foundation for sustainable executive growth."
+                </p>
+<div class="mt-8">
+<p class="font-bold text-primary tracking-widest uppercase text-xs">Alistair Vance</p>
+<p class="text-on-surface-variant text-xs">Chief Operations Officer</p>
+</div>
+</div>
+<div class="relative w-full md:w-1/3">
+<img alt="Architecture" class="w-full h-80 object-cover rounded-lg shadow-2xl" data-alt="Abstract architectural photography of a minimalist skyscraper with sharp angles against a clear blue sky, emphasizing structural integrity and precision" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLfvJbEU1SGw7kt7keq928dSnlC2b0NSg-Bni4b8ruzTYg89h5ZnOfyerVlBcL5fA4ypIpYw8Q-iuakezQpSdBucMVTHBb_opjGrj88bBDsqjdva2AG9NDc3MB2XstmiJiVSk8qyITnjYoKgFMgKonF3iWjG7Lt_rnz5cZSb3HF1pFJmCz2Jr-1teEYehFlyCvlnXXXlxl2QZhqtNwQ_Y0e_A0EdCQWho3ckOq5p0sNDwRYX4z2Vdh-sntKyH0wlnqnMiWWxNNNs4"/>
+</div>
+</section>
+</main>
+</body></html>
