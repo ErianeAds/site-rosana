@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { getMentorships } from '../../firebase/services';
 
 const AdminDashboard = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const [stats, setStats] = useState({
+    revenue: 'R$ 0',
+    mentorships: 0,
+    slots: 0,
+    status: 'Standby'
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const mentorships = await getMentorships();
+        setStats(prev => ({
+          ...prev,
+          mentorships: mentorships.length,
+          // Add more logic here as collections grow
+        }));
+      } catch (err) {
+        console.error("Error fetching admin stats:", err);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="admin-layout" style={{ display: 'flex', minHeight: '100vh', background: '#f8f9ff' }}>
       {/* Sidebar Shell */}
@@ -12,6 +35,13 @@ const AdminDashboard = () => {
           <a href="#" style={{ color: '#001e40', fontWeight: 'bold', textDecoration: 'none' }}>Dashboard</a>
           <a href="#" style={{ color: '#737780', textDecoration: 'none' }}>Agenda</a>
           <a href="#" style={{ color: '#737780', textDecoration: 'none' }}>Financeiro</a>
+          <button 
+            onClick={() => { logout(); window.location.hash = ''; }} 
+            className="btn-logout" 
+            style={{ marginTop: '2rem', textAlign: 'left', padding: 0 }}
+          >
+            Sair do Painel
+          </button>
         </nav>
       </aside>
 
@@ -25,10 +55,10 @@ const AdminDashboard = () => {
         {/* KPI Cards Shell */}
         <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
           {[
-            { label: 'Total Revenue', value: 'R$ 482.900', accent: '#735b25' },
-            { label: 'Active Mentorships', value: '124', accent: '#001e40' },
-            { label: 'Pending Slots', value: '12', accent: '#001e40' },
-            { label: 'Compliance Status', value: 'Prime', accent: '#001e40' }
+            { label: 'Total Revenue', value: stats.revenue, accent: '#735b25' },
+            { label: 'Active Mentorships', value: stats.mentorships, accent: '#001e40' },
+            { label: 'Pending Slots', value: stats.slots, accent: '#001e40' },
+            { label: 'Compliance Status', value: stats.status, accent: '#001e40' }
           ].map((kpi, idx) => (
             <div key={idx} style={{ 
               background: '#ffffff', 

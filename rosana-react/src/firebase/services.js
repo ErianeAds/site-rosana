@@ -39,3 +39,10 @@ export const getSessions = async (userId) => {
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
+
+export const createSession = async (sessionData) => {
+  return await addDoc(collection(db, 'sessions'), {
+    ...sessionData,
+    createdAt: new Date().toISOString()
+  });
+};

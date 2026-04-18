@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { getStudentMentorships } from '../../firebase/services';
 
 const StudentArea = () => {
   const { user, logout } = useAuth();
+  const [mentorships, setMentorships] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      const fetchMentorships = async () => {
+        const data = await getStudentMentorships(user.uid);
+        setMentorships(data);
+      };
+      fetchMentorships();
+    }
+  }, [user]);
   return (
     <div className="student-area" style={{ background: '#f8f9ff', minHeight: '100vh', paddingBottom: '4rem' }}>
       {/* Mini Nav for Student */}
