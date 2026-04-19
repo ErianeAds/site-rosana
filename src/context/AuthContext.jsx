@@ -14,8 +14,10 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [signingIn, setSigningIn] = useState(false);
 
   const loginWithGoogle = async () => {
+    setSigningIn(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
@@ -41,10 +43,15 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log("Login popup was cancelled or closed.");
-        return null; // Return null to indicate no user logged in
+      } else {
+        console.error("Error during Google Login:", error);
       }
-      console.error("Error during Google Login:", error);
-      throw error;
+      setSigningIn(false);
+      return null;
+    } finally {
+      // In case of success, onAuthStateChanged will handle the transition
+      // but we set signingIn to false just in case of immediate handling
+      setSigningIn(false);
     }
   };
 
@@ -56,7 +63,6 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
         if (firebaseUser) {
-          // Fetch role from Firestore
           const userRef = doc(db, 'users', firebaseUser.uid);
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
@@ -83,6 +89,7 @@ export const AuthProvider = ({ children }) => {
         }
       } finally {
         setLoading(false);
+        setSigningIn(false);
       }
     });
     return () => unsubscribe();
@@ -92,7 +99,8 @@ export const AuthProvider = ({ children }) => {
     user,
     loginWithGoogle,
     logout,
-    loading
+    loading,
+    signingIn
   };
 
   return (
@@ -101,3 +109,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+

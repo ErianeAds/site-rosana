@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import LoginModal from './LoginModal';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const { user, loginWithGoogle, logout } = useAuth();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccount = () => setIsAccountOpen(!isAccountOpen);
@@ -34,7 +36,7 @@ const Header = () => {
               <span className="material-symbols-outlined">account_circle</span>
             </button>
           ) : (
-            <button onClick={() => { loginWithGoogle(); closeAll(); }} className="btn btn-nav-action" style={{ background: 'transparent', border: '1px solid var(--secondary)', color: 'var(--secondary)' }}>Acessar</button>
+            <button onClick={() => { setIsLoginModalOpen(true); closeAll(); }} className="btn btn-nav-action" style={{ background: 'transparent', border: '1px solid var(--secondary)', color: 'var(--secondary)' }}>Acessar</button>
           )}
 
           {/* Hamburger Menu Toggle (Mobile) */}
@@ -55,12 +57,12 @@ const Header = () => {
         </div>
         
         <div className="sidebar-content">
-          <div className="user-info-large">
+          <div className="user-info-large" style={{ padding: '2rem' }}>
             <div className="user-avatar-placeholder">
-              {user?.photoURL ? <img src={user.photoURL} alt="User" /> : <span className="material-symbols-outlined">person</span>}
+              {user?.photoURL ? <img src={user.photoURL} alt="User" style={{ width: '100%', height: '100%', borderRadius: '50%' }} /> : <span className="material-symbols-outlined">person</span>}
             </div>
-            <h3>{user?.displayName}</h3>
-            <p>{user?.email}</p>
+            <h3 style={{ marginTop: '1rem' }}>{user?.displayName}</h3>
+            <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>{user?.email}</p>
             {user?.role === 'admin' && <span className="role-tag-admin">Administradora</span>}
           </div>
 
@@ -87,6 +89,9 @@ const Header = () => {
         </div>
       </div>
       
+      {/* Login Modal */}
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+
       {/* Overlay when sidebar is open */}
       {isAccountOpen && <div className="sidebar-overlay" onClick={closeAll}></div>}
     </nav>
@@ -94,3 +99,4 @@ const Header = () => {
 };
 
 export default Header;
+
