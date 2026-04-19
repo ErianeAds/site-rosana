@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   signInWithPopup,
+  signInWithRedirect,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getRedirectResult,
+  GoogleAuthProvider
 } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase/config';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -18,90 +21,78 @@ export const AuthProvider = ({ children }) => {
 
   const loginWithGoogle = async () => {
     setSigningIn(true);
+    
+    // Configurações customizadas para o provedor do Google
+    googleProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
+
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-
-      // Sync with Firestore
-      const userRef = doc(db, 'users', user.uid);
-      const userSnap = await getDoc(userRef);
-
-      const isAdminEmail = user.email === 'eriane.adsfecap@gmail.com';
-
-      if (!userSnap.exists()) {
-        await setDoc(userRef, {
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          role: isAdminEmail ? 'admin' : 'student',
-          createdAt: new Date().toISOString()
-        });
+      // Detecta se é um dispositivo móvel para decidir entre Popup ou Redirect
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        await signInWithRedirect(auth, googleProvider);
+        return;
       }
 
+      const result = await signInWithPopup(auth, googleProvider);
       return result;
     } catch (error) {
-      if (error.code === 'auth/cancelled-popup-request') {
-        console.log("Login popup was cancelled or closed.");
-      } else {
-        console.error("Error during Google Login:", error);
-      }
+      console.error("Erro no login:", error);
       setSigningIn(false);
       return null;
-    } finally {
-      // In case of success, onAuthStateChanged will handle the transition
-      // but we set signingIn to false just in case of immediate handling
-      setSigningIn(false);
     }
   };
 
-  const logout = () => {
-    return signOut(auth);
-  };
+  const logout = () => signOut(auth);
 
   useEffect(() => {
+    // Processa o resultado do redirecionamento (muito importante para mobile)
+    getRedirectResult(auth).catch((error) => {
+        console.error("Erro no retorno do redirecionamento:", error);
+    });
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
         if (firebaseUser) {
           const userRef = doc(db, 'users', firebaseUser.uid);
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
-
+          
           const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com';
 
           setUser({
             ...firebaseUser,
             role: isAdminEmail ? 'admin' : (userData.role || 'student')
           });
+
+          // Sincroniza dados básicos se for novo usuário
+          if (!userSnap.exists()) {
+             await setDoc(userRef, {
+                uid: firebaseUser.uid,
+                displayName: firebaseUser.displayName,
+                email: firebaseUser.email,
+                photoURL: firebaseUser.photoURL,
+                role: isAdminEmail ? 'admin' : 'student',
+                createdAt: new Date().toISOString()
+             });
+          }
         } else {
           setUser(null);
         }
       } catch (error) {
-        console.error("Auth status change error:", error);
-        if (firebaseUser) {
-          const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com';
-          setUser({
-            ...firebaseUser,
-            role: isAdminEmail ? 'admin' : 'student'
-          });
-        } else {
-          setUser(null);
-        }
+        console.error("Erro de sincronização de perfil:", error);
       } finally {
         setLoading(false);
         setSigningIn(false);
       }
     });
+
     return () => unsubscribe();
   }, []);
 
-  const value = {
-    user,
-    loginWithGoogle,
-    logout,
-    loading,
-    signingIn
-  };
+  const value = { user, loginWithGoogle, logout, loading, signingIn };
 
   return (
     <AuthContext.Provider value={value}>
@@ -109,4 +100,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
