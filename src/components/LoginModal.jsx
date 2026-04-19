@@ -37,12 +37,13 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
           ) : (
             <button className="google-login-btn" onClick={async () => {
-            const result = await loginWithGoogle();
-            // Modal closes via useEffect below when user state changes
-          }}>
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-            <span>Entrar com o Google</span>
-          </button>
+              await loginWithGoogle();
+              // Modal closes via useEffect below when user state changes
+            }}>
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+              <span>Entrar com o Google</span>
+            </button>
+          )}
         </div>
 
         {!signingIn && (
