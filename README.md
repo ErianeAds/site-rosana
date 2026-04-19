@@ -2,6 +2,10 @@
 
 Plataforma premium para gestão de mentorias, integrando site institucional, área do aluno e dashboard administrativo.
 
+🔗 **Links do Projeto:**
+*   **Site ao Vivo:** [https://site-rosana-8a91e.web.app](https://site-rosana-8a91e.web.app)
+*   **Repositório GitHub:** [https://github.com/ErianeAds/site-rosana](https://github.com/ErianeAds/site-rosana)
+
 ---
 
 ## 🚀 Guia de Utilização
