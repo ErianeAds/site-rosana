@@ -16,7 +16,7 @@ import './App.css'
 
 function App() {
   const [selectedPackage, setSelectedPackage] = useState(null)
-  const [view, setView] = useState('landing') // 'landing', 'admin', 'student'
+  const [view, setView] = useState('landing')
   const { user, loginWithGoogle, logout } = useAuth()
 
   const handleSelectPackage = (pkg) => {
@@ -28,11 +28,9 @@ function App() {
   }
 
   const handlePayment = (pkgId) => {
-    console.log(`Iniciando pagamento para o pacote: ${pkgId}`)
-    alert('Redirecionando para o checkout seguro...')
+    console.log(`Pagamento: ${pkgId}`)
   }
 
-  // Effect to handle URL hash for navigation
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -40,11 +38,7 @@ function App() {
       else if (hash === '#student') setView('student');
       else setView('landing');
     };
-
-    // Initial check
     handleHashChange();
-
-    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
@@ -56,7 +50,7 @@ function App() {
     <>
       <Header />
       <main>
-        <Hero />
+        <Hero onSelectPackage={handleSelectPackage} />
         <About />
         <Services onSelectPackage={handleSelectPackage} />
         <Methodology />
