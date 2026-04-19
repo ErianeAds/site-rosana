@@ -1,17 +1,28 @@
 import { useState, useEffect } from 'react';
+import { getSiteContent } from '../firebase/services';
 
 const WhatsAppButton = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [whatsapp, setWhatsapp] = useState('');
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener('resize', handleResize);
+    
+    const fetchWhatsapp = async () => {
+      try {
+        const data = await getSiteContent();
+        if (data.contact?.whatsapp) setWhatsapp(data.contact.whatsapp);
+      } catch (e) { console.error(e); }
+    };
+    fetchWhatsapp();
+    
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <a 
-      href="https://wa.me/5511916911215?text=Olá Rosana, gostaria de saber mais sobre a mentoria de carreira." 
+      href={`https://wa.me/${whatsapp || '5511916911215'}?text=Olá Rosana, gostaria de saber mais sobre a mentoria de carreira.`} 
       target="_blank"
       rel="noopener noreferrer"
       style={{ 
@@ -28,7 +39,7 @@ const WhatsAppButton = () => {
         justifyContent: 'center', 
         boxShadow: '0 10px 30px rgba(37, 211, 102, 0.4)', 
         textDecoration: 'none', 
-        zIndex: 9999, // Super high z-index to stay above menus
+        zIndex: 9999,
         transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' 
       }}
       onMouseOver={(e) => e.currentTarget.style.transform='scale(1.1) rotate(5deg)'}

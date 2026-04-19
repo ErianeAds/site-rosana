@@ -1,16 +1,38 @@
+import React, { useState, useEffect } from 'react';
+import { getSiteContent } from '../firebase/services';
+
 const About = () => {
+  const [content, setContent] = useState({
+    title: 'Tradição executiva aliada à visão de futuro.',
+    text: 'Com mais de 30 anos de atuação sólida...',
+    imageUrl: '/images/office.png'
+  });
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const siteData = await getSiteContent();
+        if (siteData.about) {
+          setContent(siteData.about);
+        }
+      } catch (error) {
+        console.error("Error loading about content:", error);
+      }
+    };
+    fetchAbout();
+  }, []);
+
   return (
-    <section id="about" className="section-full bg-low">
+    <section id="about" className="section-full bg-low house-about-section">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div className="grid-two">
           <div className="hero-image-container about-img-order">
-            <img src="/images/office.png" alt="Escritório Executivo" className="hero-image" style={{ transform: 'none' }} />
+            <img src={content.imageUrl || "/images/office.png"} alt="Perfil Rosana Brito" className="hero-image" style={{ transform: 'none' }} />
           </div>
           <div className="about-content-order">
-            <h2 style={{ marginBottom: '2rem' }}>Tradição executiva aliada à visão de futuro.</h2>
-            <div style={{ color: 'var(--on-surface-variant)', fontSize: '1.125rem' }}>
-              <p style={{ marginBottom: '1.5rem' }}>Com mais de 30 anos de atuação sólida no setor financeiro, minha trajetória é marcada pela gestão de equipes de alta performance e decisões estratégicas de alto impacto.</p>
-              <p>Hoje, minha missão é transpor esse conhecimento para profissionais que desejam não apenas subir degraus, mas construir uma fundação sólida e autêntica em suas carreiras.</p>
+            <h2 style={{ marginBottom: '2rem' }}>{content.title}</h2>
+            <div style={{ color: 'var(--on-surface-variant)', fontSize: '1.125rem', whiteSpace: 'pre-line' }}>
+              <p>{content.text}</p>
             </div>
             <div className="about-stats">
               <div>

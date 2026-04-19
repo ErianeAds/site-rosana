@@ -23,8 +23,9 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="footer-bottom">
+      <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p>&copy; 2024 Rosana Brito. Architectural Career Mentorship. Todos os direitos reservados.</p>
+        <a href="#admin" style={{ opacity: 0.3, color: 'inherit', fontSize: '0.75rem', textDecoration: 'none' }}>Acesso ADM</a>
       </div>
     </footer>
   );

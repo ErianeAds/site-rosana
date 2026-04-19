@@ -32,13 +32,22 @@ function App() {
     alert('Redirecionando para o checkout seguro...')
   }
 
-  // Effect to handle URL hash for testing
+  // Effect to handle URL hash for navigation
   useEffect(() => {
-    const hash = window.location.hash
-    if (hash === '#admin') setView('admin')
-    else if (hash === '#student') setView('student')
-    else setView('landing')
-  }, [])
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#admin') setView('admin');
+      else if (hash === '#student') setView('student');
+      else setView('landing');
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   if (view === 'admin') return <ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>
   if (view === 'student') return <ProtectedRoute><StudentArea /></ProtectedRoute>

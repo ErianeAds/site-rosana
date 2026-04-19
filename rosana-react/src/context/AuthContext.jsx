@@ -24,13 +24,15 @@ export const AuthProvider = ({ children }) => {
       const userRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
 
+      const isAdminEmail = user.email === 'eriane.adsfecap@gmail.com';
+
       if (!userSnap.exists()) {
         await setDoc(userRef, {
           uid: user.uid,
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
-          role: 'student', // Default role
+          role: isAdminEmail ? 'admin' : 'student',
           createdAt: new Date().toISOString()
         });
       }
@@ -59,9 +61,11 @@ export const AuthProvider = ({ children }) => {
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
 
+          const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com';
+
           setUser({
             ...firebaseUser,
-            role: userData.role || 'student'
+            role: isAdminEmail ? 'admin' : (userData.role || 'student')
           });
         } else {
           setUser(null);
@@ -69,9 +73,10 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Auth status change error:", error);
         if (firebaseUser) {
+          const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com';
           setUser({
             ...firebaseUser,
-            role: 'student'
+            role: isAdminEmail ? 'admin' : 'student'
           });
         } else {
           setUser(null);

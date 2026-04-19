@@ -1,86 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { getStudentMentorships } from '../../firebase/services';
+import { getMentorships, getSiteContent } from '../../firebase/services';
 
 const StudentArea = () => {
   const { user, logout } = useAuth();
-  const [mentorships, setMentorships] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const [siteData, setSiteData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      const fetchMentorships = async () => {
-        const data = await getStudentMentorships(user.uid);
-        setMentorships(data);
-      };
-      fetchMentorships();
-    }
+    const fetchStudentData = async () => {
+      setLoading(true);
+      try {
+        const [mentorships, content] = await Promise.all([
+          getMentorships(),
+          getSiteContent()
+        ]);
+        const myData = mentorships.filter(m => m.studentEmail === user?.email);
+        setSessions(myData);
+        setSiteData(content || {});
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (user?.email) fetchStudentData();
   }, [user]);
-  return (
-    <div className="student-area" style={{ background: '#f8f9ff', minHeight: '100vh', paddingBottom: '4rem' }}>
-      {/* Mini Nav for Student */}
-      <nav style={{ 
-        background: 'rgba(255, 255, 255, 0.8)', 
-        backdropFilter: 'blur(10px)', 
-        padding: '1rem 3rem', 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        boxShadow: '0 4px 20px rgba(11,28,48,0.05)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100
-      }}>
-        <span style={{ fontFamily: 'Noto Serif', fontStyle: 'italic', color: '#001e40', fontSize: '1.25rem' }}>Executive Distinction</span>
-        <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem' }}>
-          <a href="#" style={{ color: '#001e40', fontWeight: 'bold', textDecoration: 'none', borderBottom: '2px solid #735b25' }}>Agendamento</a>
-          <a href="#" style={{ color: '#737780', textDecoration: 'none' }}>Meu Histórico</a>
-          <a href="#" style={{ color: '#737780', textDecoration: 'none' }}>Recursos</a>
-          <button 
-            onClick={() => { logout(); window.location.hash = ''; }} 
-            className="btn-logout"
-            style={{ fontSize: '0.75rem' }}
-          >
-            Sair
-          </button>
-        </div>
-      </nav>
 
-      <main style={{ maxWidth: '1200px', margin: '3rem auto', padding: '0 2rem' }}>
-        <header style={{ marginBottom: '3rem' }}>
-          <p style={{ color: '#735b25', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '2px' }}>RESERVE SEU MOMENTO</p>
-          <h1 style={{ fontFamily: 'Noto Serif', fontSize: '3rem', color: '#001e40', lineHeight: 1.1 }}>
-            Agendamento do Aluno: {user?.displayName?.split(' ')[0] || 'Distingüido'}
-          </h1>
+  const meetingLink = siteData.contact?.meetingLink || '#';
+  const confirmedSession = sessions.find(s => s.status === 'confirmed');
+
+  return (
+    <div className="student-container" style={{ minHeight: '100vh', background: '#f8fafc', padding: '2rem' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ width: '60px', height: '60px', background: 'var(--secondary)', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+              {user?.displayName ? user.displayName[0] : 'U'}
+            </div>
+            <h1 style={{ fontSize: '1.5rem', margin: 0 }}>Olá, {user?.displayName?.split(' ')[0]}</h1>
+          </div>
+          <button onClick={logout} className="btn btn-tertiary">Sair</button>
         </header>
 
-        <div className="scheduling-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem' }}>
-          <div style={{ background: '#ffffff', borderRadius: '16px', padding: '2rem', boxShadow: '0 12px 40px rgba(0,0,0,0.04)', borderTop: '4px solid #735b25' }}>
-            <h2 style={{ fontFamily: 'Noto Serif', color: '#001e40' }}>Outubro 2023</h2>
-            {/* Calendar Placeholder */}
-            <div style={{ height: '300px', background: '#f8f9ff', marginTop: '1.5rem', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#737780' }}>
-              Interface de Calendário
-            </div>
-          </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '2rem' }}>
+          <section style={{ background: 'white', padding: '2.5rem', borderRadius: '24px', boxShadow: '0 10px 40px rgba(0,0,0,0.02)' }}>
+            <h3 style={{ fontFamily: 'Noto Serif', marginBottom: '2rem' }}>Meus Agendamentos</h3>
+            {loading ? <p>Sincronizando sessões...</p> : sessions.length === 0 ? <p>Nenhuma mentoria ativa.</p> : (
+              <div style={{ display: 'grid', gap: '1rem' }}>
+                {sessions.map((s, i) => (
+                  <div key={i} style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <h4 style={{ margin: 0 }}>{s.serviceTitle}</h4>
+                      <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>{s.date} às {s.time}hs</p>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '20px', background: s.status === 'confirmed' ? '#e6fff1' : '#fff', color: s.status === 'confirmed' ? '#008a3e' : '#64748b', fontWeight: 'bold' }}>
+                        {s.status === 'confirmed' ? 'Confirmada' : 'Pendente'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
 
-          <aside style={{ background: '#eff4ff', borderRadius: '16px', padding: '2rem' }}>
-            <h3 style={{ fontFamily: 'Noto Serif', color: '#001e40', fontSize: '1.125rem' }}>Horários Disponíveis</h3>
-            <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {['09:00 AM', '11:00 AM', '02:00 PM'].map((time, i) => (
-                <button key={i} style={{ 
-                  background: '#ffffff', 
-                  border: '1px solid #c3c6d1', 
-                  padding: '1rem', 
-                  borderRadius: '8px', 
-                  textAlign: 'left',
-                  cursor: 'pointer'
-                }}>
-                  {time} - {i === 1 ? 'Sessão Individual' : 'Mentoria Estratégica'}
-                </button>
-              ))}
+          <aside style={{ display: 'grid', gap: '2rem', alignContent: 'start' }}>
+            {confirmedSession && (
+              <div style={{ background: '#001e40', color: 'white', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: '#fddc99', marginBottom: '1rem' }}>video_camera_front</span>
+                <h4 style={{ marginBottom: '0.5rem' }}>Próxima Reunião</h4>
+                <p style={{ fontSize: '0.85rem', opacity: 0.8, marginBottom: '1.5rem' }}>{confirmedSession.date} às {confirmedSession.time}hs</p>
+                <a href={meetingLink} target="_blank" rel="noopener noreferrer" 
+                   style={{ display: 'block', background: '#008a3e', color: 'white', textDecoration: 'none', padding: '1rem', borderRadius: '12px', fontWeight: 'bold' }}>
+                  Entrar no Google Meet
+                </a>
+              </div>
+            )}
+            
+            <div style={{ padding: '2rem', background: 'white', borderRadius: '24px', border: '1px solid #e2e8f0' }}>
+              <h4 style={{ marginBottom: '1rem' }}>Apoio ao Aluno</h4>
+              <p style={{ fontSize: '0.85rem', opacity: 0.7 }}>Em caso de dúvidas sobre seu link ou horário, entre em contato via WhatsApp.</p>
             </div>
           </aside>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
