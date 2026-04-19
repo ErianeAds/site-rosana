@@ -74,7 +74,7 @@ const StudentArea = () => {
               currentPillar: 'Diagnóstico',
               objective: 'Definindo as bases da jornada...',
               tasks: [],
-              materials: []
+              featuredImage: null
           });
       }
     } catch (error) {
@@ -391,25 +391,40 @@ const StudentArea = () => {
                     )}
 
                     <div style={{ marginBottom: '2rem' }}>
-                        <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#735b25', fontWeight: 'bold', marginBottom: '1.25rem' }}>Materiais de Apoio</h4>
+                        <h4 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#735b25', fontWeight: 'bold', marginBottom: '1.25rem' }}>Material de Apoio</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                            {progress.materials.length === 0 ? <p style={{ fontSize: '0.8rem', opacity: 0.5 }}>Sem materiais disponíveis no momento.</p> : progress.materials.map((mat, i) => (
-                                <a key={i} href={mat.url} target="_blank" rel="noreferrer" className="material-link-hybrid" style={{ 
-                                    padding: '1rem', 
+                            {progress.featuredImage ? (
+                                <div className="featured-material-card" style={{ 
                                     background: 'var(--surface-container-lowest)', 
-                                    borderRadius: '16px', 
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '12px',
-                                    textDecoration: 'none',
-                                    color: 'var(--primary)',
-                                    fontWeight: '600',
-                                    fontSize: '0.875rem'
+                                    borderRadius: '24px', 
+                                    overflow: 'hidden',
+                                    border: '1px solid var(--outline-variant)'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: '18px', opacity: 0.5 }}>menu_book</span>
-                                    {mat.title}
-                                </a>
-                            ))}
+                                    <img 
+                                        src={progress.featuredImage.url} 
+                                        alt="Material de Apoio" 
+                                        style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover' }} 
+                                    />
+                                    <div style={{ padding: '1rem', textAlign: 'center' }}>
+                                        <a href={progress.featuredImage.url} target="_blank" rel="noreferrer" style={{ 
+                                            fontSize: '0.75rem', 
+                                            fontWeight: '800', 
+                                            color: '#735b25', 
+                                            textDecoration: 'none', 
+                                            textTransform: 'uppercase',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px'
+                                        }}>
+                                            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>open_in_new</span>
+                                            Visualizar em Tela Cheia
+                                        </a>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p style={{ fontSize: '0.8rem', opacity: 0.5 }}>Sem material visual disponível para esta fase.</p>
+                            )}
                         </div>
                     </div>
 

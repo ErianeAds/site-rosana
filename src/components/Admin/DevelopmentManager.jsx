@@ -13,7 +13,7 @@ const DevelopmentManager = ({ mentorships, notify }) => {
     currentPillar: 'Diagnóstico',
     objective: '',
     tasks: [],
-    materials: []
+    featuredImage: null
   });
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -21,7 +21,6 @@ const DevelopmentManager = ({ mentorships, notify }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const [newTask, setNewTask] = useState({ title: '', dueDate: '' });
-  const [newMaterial, setNewMaterial] = useState({ title: '', url: '', pillar: 'Diagnóstico', type: 'link' });
 
   const uniqueStudents = [...new Set(mentorships.map(m => m.studentId))].map(id => {
     return mentorships.find(m => m.studentId === id);
@@ -98,53 +97,58 @@ const DevelopmentManager = ({ mentorships, notify }) => {
     handleUpdateProgress({ tasks: newTasks });
   };
 
-  const addMaterial = () => {
-    if (!newMaterial.title || !newMaterial.url) return;
-    handleUpdateProgress({ materials: [...progress.materials, newMaterial] });
-    setNewMaterial({ title: '', url: '', pillar: progress.currentPillar, type: 'link' });
-  };
-
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file || !selectedStudent) return;
 
+    // Se já houver uma imagem, deletamos a antiga primeiro
+    if (progress.featuredImage?.storagePath) {
+        try {
+            await deleteFile(progress.featuredImage.storagePath);
+        } catch (e) {
+            console.error("Erro ao limpar imagem anterior:", e);
+        }
+    }
+
     setUploading(true);
     setUploadProgress(0);
     try {
-      const path = `mentorship_assets/${selectedStudent.studentId}/${Date.now()}_${file.name}`;
+      const path = `mentorship_assets/${selectedStudent.studentId}/featured_${Date.now()}_${file.name}`;
       const url = await uploadFile(file, path, (p) => setUploadProgress(p));
       
-      const fileMaterial = {
-          title: file.name,
-          url: url,
-          storagePath: path,
-          pillar: progress.currentPillar,
-          type: 'file'
+      const newImage = {
+        url,
+        storagePath: path,
+        type: 'image',
+        createdAt: new Date().toISOString()
       };
 
-      await handleUpdateProgress({ materials: [...progress.materials, fileMaterial] });
-      notify('success', 'Arquivo enviado com sucesso.');
+      await handleUpdateProgress({ featuredImage: newImage });
+      notify('success', 'Banner da jornada atualizado.');
       if (fileInputRef.current) fileInputRef.current.value = '';
+
     } catch (err) {
-      notify('error', 'Erro ao enviar arquivo.');
+      console.error("Erro no upload:", err);
+      notify('error', 'Erro ao processar imagem.');
     } finally {
       setUploading(false);
       setUploadProgress(0);
     }
   };
 
-  const removeMaterial = async (index) => {
-    const material = progress.materials[index];
+  const removeFeaturedImage = async () => {
+    if (!progress.featuredImage?.storagePath) return;
     
-    if (material.type === 'file' && material.storagePath) {
-        try {
-            await deleteFile(material.storagePath);
-        } catch (e) {
-            console.error("Erro ao deletar arquivo físico:", e);
-        }
+    setSaveLoading(true);
+    try {
+      await deleteFile(progress.featuredImage.storagePath);
+      await handleUpdateProgress({ featuredImage: null });
+      notify('success', 'Imagem removida.');
+    } catch (e) {
+        notify('error', 'Erro ao remover imagem física.');
+    } finally {
+        setSaveLoading(false);
     }
-
-    handleUpdateProgress({ materials: progress.materials.filter((_, i) => i !== index) });
   };
 
   if (!selectedStudent && uniqueStudents.length > 0) {
@@ -364,60 +368,44 @@ const DevelopmentManager = ({ mentorships, notify }) => {
             />
           </section>
 
-          {/* Postar Material */}
-          <section className="card material-card">
-            <h4 className="material-title">
-              <span className="material-symbols-outlined">library_add</span>
-              Postar Novo Material
+          {/* Upload de Imagem de Destaque */}
+          <section className="card material-card-new">
+            <h4 className="material-title-new">
+              <span className="material-symbols-outlined">image</span>
+              Material Visual de Destaque
             </h4>
-            <div className="material-form">
-              <input 
-                type="text" 
-                placeholder="Título do Material (ex: PDF de Branding)" 
-                value={newMaterial.title}
-                onChange={(e) => setNewMaterial({...newMaterial, title: e.target.value})}
-                className="material-input"
-              />
-              <input 
-                type="text" 
-                placeholder="Link do Download / Documento" 
-                value={newMaterial.url}
-                onChange={(e) => setNewMaterial({...newMaterial, url: e.target.value})}
-                className="material-input"
-              />
-              <div className="material-actions">
-                <select 
-                  value={newMaterial.pillar}
-                  onChange={(e) => setNewMaterial({...newMaterial, pillar: e.target.value})}
-                  className="pillar-select-light"
-                >
-                  {PILLARS.map(p => <option key={p} value={p}>{p}</option>)}
-                </select>
-                <button onClick={addMaterial} className="link-button">LINKAR</button>
-              </div>
-
-              <div className="upload-area">
-                <input type="file" ref={fileInputRef} onChange={handleFileUpload} style={{ display: 'none' }} />
-                <button 
-                  disabled={uploading}
-                  onClick={() => fileInputRef.current.click()}
-                  className="upload-button"
-                >
-                  <span className={`material-symbols-outlined ${uploading ? 'spin' : ''}`}>
-                    {uploading ? 'sync' : 'upload_file'}
-                  </span>
-                  {uploading ? 'TRANSFERINDO...' : 'OU UPLOAD DIRETO DE ARQUIVO'}
-                </button>
-                
-                {uploading && (
-                  <div className="upload-progress">
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${uploadProgress}%` }}></div>
-                    </div>
-                    <p>{Math.round(uploadProgress)}% Concluído</p>
+            
+            <div className="image-management">
+              {progress.featuredImage ? (
+                <div className="image-preview-container">
+                  <img src={progress.featuredImage.url} alt="Destaque" className="featured-preview" />
+                  <div className="image-overlay-actions">
+                    <button onClick={removeFeaturedImage} className="delete-overlay-btn" title="Excluir imagem">
+                      <span className="material-symbols-outlined">delete</span>
+                    </button>
+                    <button onClick={() => fileInputRef.current.click()} className="edit-overlay-btn" title="Trocar imagem">
+                      <span className="material-symbols-outlined">edit</span>
+                    </button>
                   </div>
-                )}
-              </div>
+                </div>
+              ) : (
+                <div className="empty-upload-state" onClick={() => fileInputRef.current.click()}>
+                  <span className={`material-symbols-outlined ${uploading ? 'spin' : ''}`}>
+                    {uploading ? 'sync' : 'cloud_upload'}
+                  </span>
+                  <p>{uploading ? 'Enviando...' : 'Clique para subir a imagem da jornada'}</p>
+                </div>
+              )}
+
+              <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" style={{ display: 'none' }} />
+
+              {uploading && (
+                <div className="upload-progress-micro">
+                  <div className="progress-bar-micro">
+                    <div className="progress-fill-micro" style={{ width: `${uploadProgress}%` }}></div>
+                  </div>
+                </div>
+              )}
             </div>
           </section>
 
@@ -441,46 +429,13 @@ const DevelopmentManager = ({ mentorships, notify }) => {
         {/* Coluna Direita */}
         <div className="right-column">
           
-          {/* Conteúdos */}
-          <section className="card contents-card">
-            <h4>Conteúdos Enviados</h4>
-            
-            <div className="contents-list">
-              {PILLARS.map(pillar => {
-                const pillarMaterials = progress.materials.filter(m => m.pillar === pillar);
-                if (pillarMaterials.length === 0) return null;
-                return (
-                  <div key={pillar} className="pillar-group">
-                    <h5>{pillar}</h5>
-                    <div className="materials-list">
-                      {pillarMaterials.map((mat, idx) => (
-                        <div key={idx} className="material-item">
-                          <div className="material-info">
-                            <span className="material-symbols-outlined">
-                              {mat.type === 'file' ? 'attach_file' : 'link'}
-                            </span>
-                            <a 
-                              href={mat.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="material-link"
-                            >
-                              {mat.title}
-                            </a>
-                          </div>
-                          <button onClick={() => removeMaterial(progress.materials.indexOf(mat))} className="delete-btn">
-                            <span className="material-symbols-outlined">delete</span>
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-              {progress.materials.length === 0 && (
-                <p className="empty-message">Ainda não foram postados materiais para este ciclo.</p>
-              )}
-            </div>
+          {/* Guia de Implementação (Opcional se quiser manter texto fixo) */}
+          <section className="card contents-card-info">
+            <h4>Visão do Liderado</h4>
+            <p style={{ fontSize: '0.85rem', opacity: 0.7, lineHeight: '1.6' }}>
+              A imagem de destaque será exibida no topo do roadmap do aluno para reforçar o foco visual deste ciclo. 
+              Ideal para cards de branding, tabelas de KPI ou mapas mentais.
+            </p>
           </section>
 
           {/* Tarefas */}
@@ -668,133 +623,131 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           line-height: 1.5;
         }
         
-        /* Material Card */
-        .material-card {
-          background: var(--primary);
-          color: white;
+        /* Novos Estilos Imagem de Destaque */
+        .material-card-new {
+          background: white;
+          padding: 1.5rem;
+          border: 1px solid var(--surface-container-high);
         }
         
-        .material-title {
+        .material-title-new {
           font-family: 'Noto Serif', serif;
-          color: white;
-          margin-bottom: 1rem;
+          color: #0b1c30;
+          margin-bottom: 1.25rem;
           display: flex;
           align-items: center;
           gap: 10px;
-          font-size: clamp(1rem, 4vw, 1.25rem);
+          font-size: 1.1rem;
         }
         
-        .material-title span {
-          color: #735b25;
-        }
-        
-        .material-form {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-        
-        .material-input {
-          background: rgba(255,255,255,0.1);
-          border: none;
-          padding: 12px 16px;
-          border-radius: 14px;
-          color: white;
-          outline: none;
-          font-size: 0.9rem;
-        }
-        
-        .material-input::placeholder {
-          color: rgba(255,255,255,0.7);
-        }
-        
-        .material-actions {
-          display: flex;
-          gap: 0.75rem;
-          flex-wrap: wrap;
-        }
-        
-        .pillar-select-light {
-          flex: 1;
-          min-width: 120px;
-          background: rgba(255,255,255,0.1);
-          border: none;
-          padding: 12px;
-          border-radius: 14px;
-          color: white;
-          outline: none;
-          font-size: 0.85rem;
-        }
-        
-        .pillar-select-light option {
-          background: #333;
-        }
-        
-        .link-button {
-          background: #735b25;
-          color: white;
-          border: none;
-          padding: 0 20px;
-          border-radius: 14px;
-          cursor: pointer;
-          font-weight: bold;
-          text-transform: uppercase;
-          font-size: 0.7rem;
-          white-space: nowrap;
-        }
-        
-        .upload-area {
-          border-top: 1px solid rgba(255,255,255,0.1);
-          padding-top: 1rem;
-          margin-top: 0.5rem;
-        }
-        
-        .upload-button {
+        .image-management {
+          position: relative;
           width: 100%;
-          background: rgba(115, 91, 37, 0.1);
-          color: white;
-          border: 1.5px dashed rgba(255,255,255,0.2);
-          padding: 12px;
-          border-radius: 16px;
+        }
+        
+        .image-preview-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 20px;
+          overflow: hidden;
+          background: #f5f5f5;
+        }
+        
+        .featured-preview {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .image-overlay-actions {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+        
+        .image-preview-container:hover .image-overlay-actions {
+          opacity: 1;
+        }
+        
+        .delete-overlay-btn, .edit-overlay-btn {
+          background: white;
+          border: none;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          font-size: 0.7rem;
-          font-weight: 700;
+          color: #0b1c30;
+          transition: transform 0.2s;
+        }
+        
+        .delete-overlay-btn:hover { color: #dc2626; transform: scale(1.1); }
+        .edit-overlay-btn:hover { color: var(--primary); transform: scale(1.1); }
+        
+        .empty-upload-state {
+          width: 100%;
+          aspect-ratio: 16/9;
+          border: 2px dashed var(--outline-variant);
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          cursor: pointer;
           transition: all 0.3s;
         }
         
-        .upload-button:disabled {
-          background: rgba(255,255,255,0.05);
-          cursor: not-allowed;
+        .empty-upload-state:hover {
+          background: var(--surface-container-lowest);
+          border-color: #735b25;
         }
         
-        .upload-progress {
-          margin-top: 0.75rem;
+        .empty-upload-state span {
+          font-size: 40px;
+          color: #735b25;
         }
         
-        .progress-bar {
+        .empty-upload-state p {
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--on-surface-variant);
+        }
+        
+        .upload-progress-micro {
+          margin-top: 1rem;
+        }
+        
+        .progress-bar-micro {
           height: 4px;
           width: 100%;
-          background: rgba(255,255,255,0.1);
-          border-radius: 10px;
+          background: #eee;
+          border-radius: 2px;
           overflow: hidden;
         }
         
-        .progress-fill {
+        .progress-fill-micro {
           height: 100%;
           background: #735b25;
-          transition: width 0.3s ease;
+          transition: width 0.3s;
+        }
+
+        .spin {
+          animation: rotate 2s linear infinite;
         }
         
-        .upload-progress p {
-          font-size: 0.6rem;
-          color: rgba(255,255,255,0.6);
-          margin-top: 6px;
-          text-align: center;
-          font-weight: bold;
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         
         /* History Card */
