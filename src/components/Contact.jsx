@@ -124,20 +124,58 @@ const Contact = ({ selectedPackage, onPayment }) => {
             <h2 style={{ fontFamily: 'Noto Serif', marginBottom: '2rem', textAlign: 'center' }}>Detalhes do Agendamento</h2>
             
             <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
-              <div className="form-group"><label>Nome</label><input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
-              <div className="form-group"><label>WhatsApp</label><input type="text" required value={formData.phone} onChange={e => {
-                const val = e.target.value.replace(/\D/g, "");
-                setFormData({...formData, phone: formatPhone(val)});
-              }} placeholder="(00) 00000-0000" /></div>
+              <div className="form-group">
+                <label>Nome Completo</label>
+                <input 
+                  type="text" 
+                  required 
+                  value={formData.name} 
+                  onChange={e => setFormData({...formData, name: e.target.value})} 
+                  style={{ background: user ? 'var(--surface-container-low)' : 'white' }}
+                  readOnly={!!user && user.displayName}
+                />
+              </div>
+              <div className="form-group">
+                <label>WhatsApp Corporativo</label>
+                <input 
+                  type="text" 
+                  required 
+                  value={formData.phone} 
+                  onChange={e => {
+                    const val = e.target.value.replace(/\D/g, "");
+                    setFormData({...formData, phone: formatPhone(val)});
+                  }} 
+                  placeholder="(00) 00000-0000" 
+                />
+              </div>
             </div>
-            <div className="form-group" style={{ marginBottom: '2rem' }}><label>E-mail</label><input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
+            <div className="form-group" style={{ marginBottom: '2rem' }}>
+              <label>E-mail de Trabalho</label>
+              <input 
+                type="email" 
+                required 
+                value={formData.email} 
+                onChange={e => setFormData({...formData, email: e.target.value})} 
+                style={{ background: user ? 'var(--surface-container-low)' : 'white' }}
+                readOnly={!!user}
+              />
+            </div>
 
             {selectedPackage && (
               <div style={{ animation: 'fadeIn 0.5s' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', padding: '1rem', background: '#f8fafc', borderRadius: '12px' }}>
-                  <span style={{ fontWeight: 'bold' }}>{selectedPackage.name}</span>
-                  <span style={{ color: '#bf9b30', fontWeight: 'bold' }}>{selectedPackage.price}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', padding: '1.25rem 2rem', background: '#0b1c30', borderRadius: '16px', color: 'white' }}>
+                   <div>
+                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', opacity: 0.6, display: 'block' }}>Mentoria Selecionada</span>
+                    <span style={{ fontWeight: 'bold', fontSize: '1.1rem', fontFamily: "'Noto Serif', serif" }}>{selectedPackage.name}</span>
+                   </div>
+                   <span style={{ color: '#735b25', fontWeight: 'bold', fontSize: '1.2rem' }}>{selectedPackage.price}</span>
                 </div>
+                
+                <div style={{ marginBottom: '2rem', padding: '1rem', background: 'rgba(115, 91, 37, 0.05)', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span className="material-symbols-outlined" style={{ color: '#735b25', fontSize: '20px' }}>auto_awesome</span>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#735b25', fontWeight: '600' }}>Sua jornada será documentada no seu Roadmap de Evolução exclusivo.</p>
+                </div>
+
                 <CalendarPicker onSelect={({date, time}) => setFormData(prev => ({...prev, appointmentDate: date, appointmentTime: time}))} />
               </div>
             )}

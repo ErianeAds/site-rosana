@@ -10,7 +10,13 @@ import {
   query, 
   where 
 } from 'firebase/firestore';
-import { db } from './config';
+import { db, storage } from './config';
+import { 
+  ref, 
+  uploadBytesResumable, 
+  getDownloadURL, 
+  deleteObject 
+} from 'firebase/storage';
 
 // User Services
 export const getUserProfile = async (uid) => {
@@ -101,4 +107,53 @@ export const updateSiteSection = async (sectionId, data) => {
     ...data,
     updatedAt: new Date().toISOString()
   }, { merge: true });
+};
+
+// Mentorship Progress Services
+export const getStudentProgress = async (studentId) => {
+  const docRef = doc(db, 'mentorship_progress', studentId);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : null;
+};
+
+export const updateStudentProgress = async (studentId, data) => {
+  const docRef = doc(db, 'mentorship_progress', studentId);
+  await setDoc(docRef, {
+    ...data,
+    updatedAt: new Date().toISOString()
+  }, { merge: true });
+};
+
+export const deleteMentorship = async (id) => {
+  await deleteDoc(doc(db, 'mentorships', id));
+};
+
+export const updateMentorship = async (id, data) => {
+  await updateDoc(doc(db, 'mentorships', id), data);
+};
+
+// Storage Helpers
+export const uploadFile = async (file, path, onProgress) => {
+  return new Promise((resolve, reject) => {
+    const fileRef = ref(storage, path);
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        if (onProgress) onProgress(progress);
+      }, 
+      (error) => reject(error), 
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          resolve(downloadURL);
+        });
+      }
+    );
+  });
+};
+
+export const deleteFile = async (path) => {
+  const fileRef = ref(storage, path);
+  await deleteObject(fileRef);
 };

@@ -19,24 +19,24 @@ const Header = () => {
     <nav className="glass-nav">
       <div className="nav-container">
         <a href="#" className="logo" onClick={closeAll}>Rosana Brito</a>
-        
+
         {/* Navigation Links */}
         <div className={`nav-links ${isMenuOpen ? 'mobile-active' : ''}`}>
           <a href="#about" onClick={closeAll}>Sobre</a>
           <a href="#services" onClick={closeAll}>Serviços</a>
           <a href="#methodology" onClick={closeAll}>Metodologia</a>
           <a href="#stories" onClick={closeAll}>Sucesso</a>
-          
+
           <a href="#contact" className="btn btn-nav-action" onClick={closeAll}>Agendar Consulta</a>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           {user ? (
-            <button className="user-icon-btn" onClick={toggleAccount} aria-label="Perfil">
+            <button className="btn btn-nav-action" onClick={toggleAccount} aria-label="Perfil">
               <span className="material-symbols-outlined">account_circle</span>
             </button>
           ) : (
-            <button onClick={() => { setIsLoginModalOpen(true); closeAll(); }} className="btn btn-nav-action" style={{ background: 'transparent', border: '1px solid var(--secondary)', color: 'var(--secondary)' }}>Acessar</button>
+            <button onClick={() => { setIsLoginModalOpen(true); closeAll(); }} className="btn btn-nav-action" style={{ background: '', border: '1px solid var(--secondary)', color: 'var(--secondary)' }}>Acessar</button>
           )}
 
           {/* Hamburger Menu Toggle (Mobile) */}
@@ -55,7 +55,7 @@ const Header = () => {
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
-        
+
         <div className="sidebar-content">
           <div className="user-info-large" style={{ padding: '2rem' }}>
             <div className="user-avatar-placeholder">
@@ -88,7 +88,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      
+
       {/* Login Modal */}
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
 
