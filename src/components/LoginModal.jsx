@@ -90,7 +90,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .login-modal-overlay {
           position: fixed;
           top: 0;

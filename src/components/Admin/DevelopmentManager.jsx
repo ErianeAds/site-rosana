@@ -41,14 +41,14 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           currentPillar: data.currentPillar || 'Diagnóstico',
           objective: data.objective || '',
           tasks: data.tasks || [],
-          materials: data.materials || []
+          featuredImage: data.featuredImage || null
         });
       } else {
         setProgress({
           currentPillar: 'Diagnóstico',
           objective: '',
           tasks: [],
-          materials: []
+          featuredImage: null
         });
       }
     } catch (e) {
@@ -178,7 +178,7 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           ))}
         </div>
 
-        <style jsx>{`
+        <style>{`
           .dev-manager-container {
             padding: 1rem;
           }
@@ -317,7 +317,7 @@ const DevelopmentManager = ({ mentorships, notify }) => {
   if (loading) return (
     <div className="loading-container">
       Sincronizando trilha estratégica...
-      <style jsx>{`
+      <style>{`
         .loading-container {
           padding: 3rem;
           text-align: center;
@@ -501,7 +501,7 @@ const DevelopmentManager = ({ mentorships, notify }) => {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .dev-manager-container {
           padding: 1rem;
           max-width: 1400px;
