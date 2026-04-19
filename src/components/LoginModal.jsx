@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const { loginWithGoogle, signingIn } = useAuth();
+  const { user, loginWithGoogle, signingIn } = useAuth();
+
+  // Fecha o modal automaticamente ao logar
+  useEffect(() => {
+    if (user && isOpen) {
+      onClose();
+    }
+  }, [user, isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -30,13 +37,12 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
           ) : (
             <button className="google-login-btn" onClick={async () => {
-              await loginWithGoogle();
-              // onClose is handled by useEffect or after await if not using redirect
-            }}>
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-              <span>Entrar com o Google</span>
-            </button>
-          )}
+            const result = await loginWithGoogle();
+            // Modal closes via useEffect below when user state changes
+          }}>
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+            <span>Entrar com o Google</span>
+          </button>
         </div>
 
         {!signingIn && (
@@ -53,24 +59,24 @@ const LoginModal = ({ isOpen, onClose }) => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0, 30, 80, 0.5);
-          backdrop-filter: blur(12px);
+          background: rgba(0, 15, 40, 0.6);
+          backdrop-filter: blur(16px);
           z-index: 10000;
           display: flex;
           align-items: center;
           justify-content: center;
-          animation: modalFadeIn 0.3s ease;
+          animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .login-modal-content {
           background: white;
           width: 90%;
           max-width: 420px;
-          padding: 3rem 2rem;
+          padding: 4rem 2.5rem;
           border-radius: 40px;
           position: relative;
           text-align: center;
-          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
-          animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
+          animation: modalSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .login-modal-close {
           position: absolute;
