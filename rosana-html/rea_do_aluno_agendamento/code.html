@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#261a00",
+                        "tertiary-fixed-dim": "#bcc7dd",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fddc99",
+                        "tertiary-fixed": "#d8e3fa",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdf9f",
+                        "tertiary-container": "#293446",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary-container": "#799dd6",
+                        "on-surface-variant": "#43474f",
+                        "secondary-fixed-dim": "#e3c382",
+                        "primary-fixed": "#d5e3ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#59430f",
+                        "surface": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "surface-tint": "#3a5f94",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary": "#735b25",
+                        "on-primary-fixed": "#001b3c",
+                        "inverse-primary": "#a7c8ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-dim": "#cbdbf5",
+                        "primary": "#001e40",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-container": "#919cb2",
+                        "outline-variant": "#c3c6d1",
+                        "on-error-container": "#93000a",
+                        "outline": "#737780",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "tertiary": "#141f2f",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed": "#111c2c",
+                        "inverse-surface": "#213145",
+                        "primary-container": "#003366",
+                        "on-secondary-container": "#785f29",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "surface-variant": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-[0_12px_40px_rgba(11,28,48,0.06)]">
+<div class="flex justify-between items-center px-10 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-xl font-serif italic text-blue-950 dark:text-white">Executive Distinction</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-500 dark:text-slate-400 font-sans hover:text-blue-800 dark:hover:text-amber-500 transition-all duration-300" href="#">Insights</a>
+<a class="text-blue-950 dark:text-white border-b-2 border-amber-700 pb-1 font-semibold hover:text-blue-800 dark:hover:text-amber-500 transition-all duration-300" href="#">Scheduling</a>
+<a class="text-slate-500 dark:text-slate-400 font-sans hover:text-blue-800 dark:hover:text-amber-500 transition-all duration-300" href="#">History</a>
+<a class="text-slate-500 dark:text-slate-400 font-sans hover:text-blue-800 dark:hover:text-amber-500 transition-all duration-300" href="#">Resources</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-all">Book a Session</button>
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container" data-alt="Professional close-up portrait of a young executive smiling against a neutral studio background with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpom06Og-iCUvN9ZpE8daWKUbgVVMTMaIL4bKJ5VVTb3yaihygSiIxl00r71SUj1hBIYFpnyZY8acs9rlW71KC38NBQ8gGTAMGufC9_ZCM0WTBMLVjgBuZdPrD4e4wbpdHLWSkNYAE4V1-k7xEg_Hmal26s5d9rahwUjA7sGFWhpilo17pABWWLw_Si15UYWEyDE5-jee0ODL0YdXv6E6OHEy9qDo9m2nFKKp0KXc0BGOhhfecaTPorXcz7V98mG6W-w745ZZE8Jw"/>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+<header class="mb-12">
+<p class="text-secondary font-label tracking-widest text-xs font-bold mb-2 uppercase">RESERVE YOUR MOMENTUM</p>
+<h1 class="text-5xl font-headline font-bold text-primary tracking-tighter leading-tight max-w-2xl">
+                Strategic Mentorship <br/>Scheduling.
+            </h1>
+</header>
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-20">
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-[0_12px_40px_rgba(11,28,48,0.06)] overflow-hidden border-t-4 border-secondary">
+<div class="p-8 border-b border-outline-variant/15 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-headline font-bold text-primary">October 2023</h2>
+<p class="text-on-surface-variant text-sm font-body">Select an available date for your session</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="p-8">
+<div class="grid grid-cols-7 text-center mb-4">
+<span class="text-xs font-label text-outline uppercase tracking-wider">Sun</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Mon</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Tue</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Wed</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Thu</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Fri</span>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Sat</span>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 bg-surface-container-low/30 rounded-lg opacity-40">
+<span class="text-xs">27</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 bg-surface-container-low/30 rounded-lg opacity-40">
+<span class="text-xs">28</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 bg-surface-container-low/30 rounded-lg opacity-40">
+<span class="text-xs">29</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 bg-surface-container-low/30 rounded-lg opacity-40">
+<span class="text-xs">30</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">1</span>
+<div class="mt-auto bg-error-container/20 text-on-error-container text-[10px] p-1 rounded font-medium">Fully Booked</div>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">2</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">3</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">4</span>
+<div class="mt-auto bg-secondary-container/30 text-on-secondary-container text-[10px] p-1 rounded font-medium">2 Slots Open</div>
+</div>
+<div class="h-24 md:h-32 p-2 border-2 border-primary bg-primary/5 flex flex-col gap-1 rounded-lg cursor-pointer">
+<span class="text-xs font-bold text-primary">5</span>
+<div class="mt-auto bg-primary text-on-primary text-[10px] p-1 rounded font-medium">Active Selection</div>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">6</span>
+<div class="mt-auto bg-secondary-container/30 text-on-secondary-container text-[10px] p-1 rounded font-medium">4 Slots Open</div>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 hover:bg-surface-container-low transition-colors rounded-lg cursor-pointer">
+<span class="text-xs font-bold">7</span>
+</div>
+<div class="h-24 md:h-32 p-2 border border-outline-variant/10 flex flex-col gap-1 bg-surface-container-low transition-colors rounded-lg">
+<span class="text-xs font-bold">8</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 bg-surface-container-low rounded-xl p-8 sticky top-32">
+<div class="mb-6">
+<h3 class="text-lg font-headline font-bold text-primary mb-1">Available Slots</h3>
+<p class="text-on-surface-variant text-sm">Thursday, October 5th</p>
+</div>
+<div class="space-y-3">
+<button class="w-full flex justify-between items-center px-4 py-4 bg-surface-container-lowest rounded-lg border border-outline-variant/15 hover:border-primary transition-all group">
+<span class="font-medium text-on-surface">09:00 AM - 10:00 AM</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">arrow_forward</span>
+</button>
+<button class="w-full flex justify-between items-center px-4 py-4 bg-primary text-on-primary rounded-lg shadow-lg group">
+<span class="font-medium">11:30 AM - 12:30 PM</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="w-full flex justify-between items-center px-4 py-4 bg-surface-container-lowest rounded-lg border border-outline-variant/15 hover:border-primary transition-all group">
+<span class="font-medium text-on-surface">02:00 PM - 03:00 PM</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">arrow_forward</span>
+</button>
+<button class="w-full flex justify-between items-center px-4 py-4 opacity-50 bg-outline-variant/10 rounded-lg cursor-not-allowed">
+<span class="font-medium text-on-surface/50 line-through">04:30 PM - 05:30 PM</span>
+<span class="text-xs uppercase font-bold tracking-tighter">Booked</span>
+</button>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/15">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+</div>
+<div>
+<p class="text-xs font-label uppercase text-outline">Meeting Format</p>
+<p class="text-sm font-bold text-primary">Executive Video Link</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-4xl mx-auto">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-headline font-bold text-primary mb-4">Complete Your Reservation</h2>
+<p class="text-on-surface-variant font-body">Provide your details to synchronize the session with your personal executive dashboard.</p>
+</div>
+<form class="bg-surface-container-lowest rounded-xl p-10 shadow-[0_12px_40px_rgba(11,28,48,0.06)] grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+<div class="relative">
+<label class="text-[10px] font-label uppercase tracking-widest text-outline absolute -top-2 left-0 bg-surface-container-lowest px-1">Full name</label>
+<input class="w-full bg-transparent border-0 border-b border-outline/30 py-3 focus:ring-0 focus:border-primary font-body text-on-surface placeholder:text-outline-variant" placeholder="Johnathan Q. Sterling" type="text"/>
+</div>
+<div class="relative">
+<label class="text-[10px] font-label uppercase tracking-widest text-outline absolute -top-2 left-0 bg-surface-container-lowest px-1">Email</label>
+<input class="w-full bg-transparent border-0 border-b border-outline/30 py-3 focus:ring-0 focus:border-primary font-body text-on-surface placeholder:text-outline-variant" placeholder="j.sterling@executive.com" type="email"/>
+</div>
+<div class="relative">
+<label class="text-[10px] font-label uppercase tracking-widest text-outline absolute -top-2 left-0 bg-surface-container-lowest px-1">WhatsApp</label>
+<input class="w-full bg-transparent border-0 border-b border-outline/30 py-3 focus:ring-0 focus:border-primary font-body text-on-surface placeholder:text-outline-variant" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="relative">
+<label class="text-[10px] font-label uppercase tracking-widest text-outline absolute -top-2 left-0 bg-surface-container-lowest px-1">Meeting Priority</label>
+<select class="w-full bg-transparent border-0 border-b border-outline/30 py-3 focus:ring-0 focus:border-primary font-body text-on-surface appearance-none">
+<option>Career Transition Planning</option>
+<option>Leadership Development</option>
+<option>Negotiation Strategy</option>
+<option>Operational Excellence</option>
+</select>
+</div>
+<div class="md:col-span-2 relative">
+<label class="text-[10px] font-label uppercase tracking-widest text-outline absolute -top-2 left-0 bg-surface-container-lowest px-1">Mentorship Goal</label>
+<textarea class="w-full bg-transparent border-0 border-b border-outline/30 py-3 focus:ring-0 focus:border-primary font-body text-on-surface placeholder:text-outline-variant resize-none" placeholder="Outline your primary objectives for this session..." rows="3"></textarea>
+</div>
+<div class="md:col-span-2 flex justify-center pt-6">
+<button class="bg-secondary text-white px-12 py-4 rounded-lg font-bold text-lg hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20 flex items-center gap-3 group" type="submit">
+                        Confirm Appointment
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+</button>
+</div>
+</form>
+</section>
+<section class="mt-32 px-12 py-16 bg-surface-container-high rounded-xl relative overflow-hidden">
+<div class="absolute top-10 left-10 opacity-10">
+<span class="material-symbols-outlined text-[120px] text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="max-w-3xl mx-auto text-center relative z-10">
+<h3 class="text-3xl font-headline italic text-primary leading-relaxed mb-8">
+                    "The difference between a career and a legacy is the strategic intent behind every hour spent in preparation."
+                </h3>
+<div class="flex flex-col items-center">
+<img alt="Principal Mentor avatar" class="w-16 h-16 rounded-full object-cover mb-4 border-2 border-white" data-alt="Dignified mature professional man with graying hair and a tailored navy suit looking confidently at the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLawT57uNebJsonoFKECAi5-fPE9TYmZ7rSwtFdSgELFCJrQtMiOlmXH3AVRqd_je6ldkDRhWtauYyuYNxE58nMWwP9iKnRxRQjxe951AHQe66d5QUw2oYAFRHoep-HvoxgHEvlogpYxeDLq310T0OYcwXfxN63NkSyC2UsO7OLjGt-GgzW4uK18CLZPXrbY0k1MfcGuXXtH7sbndXZVJz-p9CygkxtFl6jFyV8ttSVXKNQZWP8154hZyCvIFwrMcBUm0CIlx71Wg"/>
+<p class="font-bold text-primary font-body">Rosana</p>
+<p class="text-xs font-label uppercase tracking-widest text-outline">Principal Mentor</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-primary py-16 text-on-primary">
+<div class="max-w-screen-2xl mx-auto px-10 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="md:col-span-2">
+<span class="text-2xl font-serif italic mb-6 block">Executive Distinction</span>
+<p class="text-primary-fixed-dim max-w-sm mb-8 leading-relaxed">Elevating the next generation of global leadership through architectural mentorship and strategic career design.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">mail</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">share</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">info</span>
+</div>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg mb-6">Curated Paths</h4>
+<ul class="space-y-4 text-primary-fixed-dim text-sm">
+<li><a class="hover:text-white transition-colors" href="#">Executive Mentorship</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Strategic Positioning</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Global Network Access</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Leadership Lab</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg mb-6">Governance</h4>
+<ul class="space-y-4 text-primary-fixed-dim text-sm">
+<li><a class="hover:text-white transition-colors" href="#">Confidentiality Policy</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Honor Code</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto px-10 mt-16 pt-8 border-t border-white/10 flex justify-between items-center text-[10px] font-label uppercase tracking-[0.2em] text-primary-fixed-dim">
+<span>© 2023 EXECUTIVE DISTINCTION GROUP</span>
+<span>ESTABLISHED 2018</span>
+</div>
+</footer>
+</body></html>
