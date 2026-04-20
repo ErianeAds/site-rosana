@@ -5,9 +5,13 @@ import {
   signOut,
   onAuthStateChanged,
   getRedirectResult,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  OAuthProvider
 } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase/config';
+const appleProvider = new OAuthProvider('apple.com');
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const AuthContext = createContext();
@@ -45,6 +49,55 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithApple = async () => {
+    setSigningIn(true);
+    try {
+      const result = await signInWithPopup(auth, appleProvider);
+      return result;
+    } catch (e) {
+      console.error("Erro Apple Login:", e);
+      setSigningIn(false);
+    }
+  };
+
+  const loginWithEmail = async (email, password) => {
+    setSigningIn(true);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      return result;
+    } catch (e) {
+      console.error("Erro Email Login:", e);
+      setSigningIn(false);
+      throw e;
+    }
+  };
+
+  const registerWithEmail = async (email, password, name) => {
+    setSigningIn(true);
+    try {
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      // Update Firebase Auth Profile with Name
+      const { updateProfile } = await import('firebase/auth');
+      await updateProfile(result.user, { displayName: name });
+      
+      // Force sync with local Firestore
+      const userRef = doc(db, 'users', result.user.uid);
+      await setDoc(userRef, {
+          uid: result.user.uid,
+          displayName: name,
+          email: email,
+          role: 'student',
+          createdAt: new Date().toISOString()
+      });
+
+      return result;
+    } catch (e) {
+      console.error("Erro Registro Email:", e);
+      setSigningIn(false);
+      throw e;
+    }
+  };
+
   const logout = () => signOut(auth);
 
   useEffect(() => {
@@ -60,7 +113,7 @@ export const AuthProvider = ({ children }) => {
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
           
-          const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com';
+          const isAdminEmail = firebaseUser.email === 'rolbrito1320@gmail.com' || firebaseUser.email === 'carreiras@rosanalbrito.com.br';
 
           setUser({
             ...firebaseUser,
@@ -92,7 +145,16 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const value = { user, loginWithGoogle, logout, loading, signingIn };
+  const value = { 
+    user, 
+    loginWithGoogle, 
+    loginWithApple, 
+    loginWithEmail, 
+    registerWithEmail, 
+    logout, 
+    loading, 
+    signingIn 
+  };
 
   return (
     <AuthContext.Provider value={value}>

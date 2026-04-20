@@ -2,39 +2,50 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
+    function isAdmin() {
+      return request.auth != null && (request.auth.token.email == 'rolbrito1320@gmail.com' || request.auth.token.email == 'carreiras@rosanalbrito.com.br');
+    }
+
     // Regras para a coleção de cursos/preços
     match /courses/{courseId} {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.token.email == 'eriane.adsfecap@gmail.com';
+      allow write: if isAdmin();
     }
     
-    // NOVO: Regras para o conteúdo dinâmico do site (Hero, Sobre, etc)
+    // Regras para o conteúdo dinâmico do site (Hero, Sobre, etc)
     match /site_content/{sectionId} {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.token.email == 'eriane.adsfecap@gmail.com';
+      allow write: if isAdmin();
     }
     
     // Regras para usuários e perfis
     match /users/{userId} {
-      allow read, write: if request.auth != null && (request.auth.uid == userId || request.auth.token.email == 'eriane.adsfecap@gmail.com');
+      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
     }
     
     // Regras para agendamentos de mentoria
     match /mentorships/{docId} {
-      allow read: if request.auth != null && (resource.data.studentId == request.auth.uid || request.auth.token.email == 'eriane.adsfecap@gmail.com');
+      allow read: if request.auth != null && (resource.data.studentId == request.auth.uid || isAdmin());
       allow write: if request.auth != null;
     }
 
     // Regras para sessões
     match /sessions/{docId} {
-      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.email == 'eriane.adsfecap@gmail.com');
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
       allow write: if request.auth != null;
     }
 
     // Regras para o progresso da mentoria (incluindo imagens de destaque)
     match /mentorship_progress/{studentId} {
-      allow read: if request.auth != null && (request.auth.uid == studentId || request.auth.token.email == 'eriane.adsfecap@gmail.com');
-      allow write: if request.auth != null && request.auth.token.email == 'eriane.adsfecap@gmail.com';
+      allow read: if request.auth != null && (request.auth.uid == studentId || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Regras para depoimentos
+    match /testimonials/{docId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && (isAdmin() || (resource.data != null && resource.data.studentId == request.auth.uid));
+      allow update, delete: if isAdmin();
     }
 
   }

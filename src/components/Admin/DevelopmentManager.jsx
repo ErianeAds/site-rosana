@@ -11,7 +11,8 @@ const DevelopmentManager = ({ mentorships, notify }) => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [progress, setProgress] = useState({
     currentPillar: 'Diagnóstico',
-    objective: '',
+    swot: { strengths: '', weaknesses: '', opportunities: '', threats: '' },
+    futureVision: '',
     tasks: [],
     featuredImage: null
   });
@@ -39,14 +40,16 @@ const DevelopmentManager = ({ mentorships, notify }) => {
       if (data) {
         setProgress({
           currentPillar: data.currentPillar || 'Diagnóstico',
-          objective: data.objective || '',
+          swot: data.swot || { strengths: '', weaknesses: '', opportunities: '', threats: '' },
+          futureVision: data.futureVision || '',
           tasks: data.tasks || [],
           featuredImage: data.featuredImage || null
         });
       } else {
         setProgress({
           currentPillar: 'Diagnóstico',
-          objective: '',
+          swot: { strengths: '', weaknesses: '', opportunities: '', threats: '' },
+          futureVision: '',
           tasks: [],
           featuredImage: null
         });
@@ -97,57 +100,71 @@ const DevelopmentManager = ({ mentorships, notify }) => {
     handleUpdateProgress({ tasks: newTasks });
   };
 
+  const processImage = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Redimensionamento inteligente (Máximo 1200px)
+          const MAX_WIDTH = 1200;
+          if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Qualidade 0.7 para ser leve e rápido
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+          resolve(dataUrl);
+        };
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleImageUrlChange = async (url) => {
+    let finalUrl = url;
+    if (url.includes('drive.google.com')) {
+        const driveId = url.split('/d/')[1]?.split('/')[0];
+        if (driveId) finalUrl = `https://drive.google.com/uc?export=view&id=${driveId}`;
+    }
+    handleUpdateProgress({ featuredImage: url ? { url: finalUrl, type: 'url' } : null });
+  };
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file || !selectedStudent) return;
 
-    // Se já houver uma imagem, deletamos a antiga primeiro
-    if (progress.featuredImage?.storagePath) {
-        try {
-            await deleteFile(progress.featuredImage.storagePath);
-        } catch (e) {
-            console.error("Erro ao limpar imagem anterior:", e);
-        }
-    }
-
     setUploading(true);
-    setUploadProgress(0);
     try {
-      const path = `mentorship_assets/${selectedStudent.studentId}/featured_${Date.now()}_${file.name}`;
-      const url = await uploadFile(file, path, (p) => setUploadProgress(p));
+      // Processamento local (Sem CORS, sem servidor)
+      const optimizedBase64 = await processImage(file);
       
       const newImage = {
-        url,
-        storagePath: path,
-        type: 'image',
+        url: optimizedBase64,
+        type: 'file',
         createdAt: new Date().toISOString()
       };
 
       await handleUpdateProgress({ featuredImage: newImage });
-      notify('success', 'Banner da jornada atualizado.');
-      if (fileInputRef.current) fileInputRef.current.value = '';
-
+      notify('success', 'Banner processado e atualizado!');
     } catch (err) {
-      console.error("Erro no upload:", err);
-      notify('error', 'Erro ao processar imagem.');
+      console.error("Erro no processamento:", err);
+      notify('error', 'Falha ao processar imagem localmente.');
     } finally {
       setUploading(false);
-      setUploadProgress(0);
-    }
-  };
-
-  const removeFeaturedImage = async () => {
-    if (!progress.featuredImage?.storagePath) return;
-    
-    setSaveLoading(true);
-    try {
-      await deleteFile(progress.featuredImage.storagePath);
-      await handleUpdateProgress({ featuredImage: null });
-      notify('success', 'Imagem removida.');
-    } catch (e) {
-        notify('error', 'Erro ao remover imagem física.');
-    } finally {
-        setSaveLoading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -349,71 +366,79 @@ const DevelopmentManager = ({ mentorships, notify }) => {
       </header>
 
       <div className="two-columns">
-        {/* Coluna Esquerda */}
-        <div className="left-column">
+        {/* Coluna Principal (Estratégia) */}
+        <div className="main-column">
           
-          {/* Objetivo */}
-          <section className="card objective-card">
+          {/* Matriz SWOT / FOFA */}
+          <section className="card swot-section">
             <h4 className="section-title">
-              <span className="material-symbols-outlined">target</span>
-              Objetivo do Ciclo
-            </h4>
-            <textarea 
-              placeholder="Qual o foco principal desta fase?"
-              value={progress.objective}
-              onChange={(e) => setProgress(prev => ({ ...prev, objective: e.target.value }))}
-              onBlur={() => handleUpdateProgress({ objective: progress.objective })}
-              className="objective-input"
-              rows={3}
-            />
-          </section>
-
-          {/* Upload de Imagem de Destaque */}
-          <section className="card material-card-new">
-            <h4 className="material-title-new">
-              <span className="material-symbols-outlined">image</span>
-              Material Visual de Destaque
+              <span className="material-symbols-outlined">grid_view</span>
+              Diagnóstico Estratégico (SWOT)
             </h4>
             
-            <div className="image-management">
-              {progress.featuredImage ? (
-                <div className="image-preview-container">
-                  <img src={progress.featuredImage.url} alt="Destaque" className="featured-preview" />
-                  <div className="image-overlay-actions">
-                    <button onClick={removeFeaturedImage} className="delete-overlay-btn" title="Excluir imagem">
-                      <span className="material-symbols-outlined">delete</span>
-                    </button>
-                    <button onClick={() => fileInputRef.current.click()} className="edit-overlay-btn" title="Trocar imagem">
-                      <span className="material-symbols-outlined">edit</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="empty-upload-state" onClick={() => fileInputRef.current.click()}>
-                  <span className={`material-symbols-outlined ${uploading ? 'spin' : ''}`}>
-                    {uploading ? 'sync' : 'cloud_upload'}
-                  </span>
-                  <p>{uploading ? 'Enviando...' : 'Clique para subir a imagem da jornada'}</p>
-                </div>
-              )}
+            <div className="swot-grid">
+              <div className="swot-item strengths">
+                <label>Pontos Fortes & Talentos</label>
+                <textarea 
+                  value={progress.swot?.strengths}
+                  onChange={(e) => setProgress(prev => ({ ...prev, swot: { ...prev.swot, strengths: e.target.value } }))}
+                  onBlur={() => handleUpdateProgress({ swot: progress.swot })}
+                  placeholder="Quais são as suas principais alavancas de sucesso?"
+                />
+              </div>
+              <div className="swot-item weaknesses">
+                <label>Desafios de Crescimento</label>
+                <textarea 
+                  value={progress.swot?.weaknesses}
+                  onChange={(e) => setProgress(prev => ({ ...prev, swot: { ...prev.swot, weaknesses: e.target.value } }))}
+                  onBlur={() => handleUpdateProgress({ swot: progress.swot })}
+                  placeholder="Quais comportamentos ou habilidades precisamos evoluir?"
+                />
+              </div>
+              <div className="swot-item opportunities">
+                <label>Janelas de Oportunidade</label>
+                <textarea 
+                  value={progress.swot?.opportunities}
+                  onChange={(e) => setProgress(prev => ({ ...prev, swot: { ...prev.swot, opportunities: e.target.value } }))}
+                  onBlur={() => handleUpdateProgress({ swot: progress.swot })}
+                  placeholder="Quais portas se abrem com o seu desenvolvimento?"
+                />
+              </div>
+              <div className="swot-item threats">
+                <label>Riscos & Atenção</label>
+                <textarea 
+                  value={progress.swot?.threats}
+                  onChange={(e) => setProgress(prev => ({ ...prev, swot: { ...prev.swot, threats: e.target.value } }))}
+                  onBlur={() => handleUpdateProgress({ swot: progress.swot })}
+                  placeholder="O que pode desviar você do seu objetivo?"
+                />
+              </div>
+            </div>
 
-              <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" style={{ display: 'none' }} />
-
-              {uploading && (
-                <div className="upload-progress-micro">
-                  <div className="progress-bar-micro">
-                    <div className="progress-fill-micro" style={{ width: `${uploadProgress}%` }}></div>
-                  </div>
-                </div>
-              )}
+            <div className="future-vision-section">
+              <label className="vision-label">
+                <span className="material-symbols-outlined">auto_awesome</span>
+                Visão de Futuro
+              </label>
+              <textarea 
+                value={progress.futureVision}
+                onChange={(e) => setProgress(prev => ({ ...prev, futureVision: e.target.value }))}
+                onBlur={() => handleUpdateProgress({ futureVision: progress.futureVision })}
+                placeholder="Quem você quer ser ao final deste ciclo?"
+                className="vision-textarea"
+                rows={3}
+              />
             </div>
           </section>
 
-          {/* Histórico */}
+          {/* Histórico - Agora mais discreto no final da coluna estratégica */}
           <section className="card history-card">
-            <h4>Compromissos Recentes</h4>
+            <h4 className="section-title">
+                <span className="material-symbols-outlined">history</span>
+                Ciclos de Mentoria
+            </h4>
             <div className="history-list">
-              {studentSessions.slice(0, 3).map((s, i) => (
+              {studentSessions.slice(0, 5).map((s, i) => (
                 <div key={i} className="history-item">
                   <span className="history-date">{s.date}</span>
                   <span className="history-title">{s.serviceTitle}</span>
@@ -426,29 +451,23 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           </section>
         </div>
 
-        {/* Coluna Direita */}
-        <div className="right-column">
+        {/* Coluna Lateral (Ação & Visual) */}
+        <div className="side-column">
           
-          {/* Guia de Implementação (Opcional se quiser manter texto fixo) */}
-          <section className="card contents-card-info">
-            <h4>Visão do Liderado</h4>
-            <p style={{ fontSize: '0.85rem', opacity: 0.7, lineHeight: '1.6' }}>
-              A imagem de destaque será exibida no topo do roadmap do aluno para reforçar o foco visual deste ciclo. 
-              Ideal para cards de branding, tabelas de KPI ou mapas mentais.
-            </p>
-          </section>
-
           {/* Tarefas */}
           <section className="card tasks-card">
             <div className="tasks-header">
-              <h4>Plano de Ação (Checklist)</h4>
-              <span className="tasks-count">{completedTasks}/{progress.tasks.length} concluídas</span>
+              <h4 className="section-title">
+                  <span className="material-symbols-outlined">checklist</span>
+                  Plano de Ação
+              </h4>
+              <span className="tasks-count">{completedTasks}/{progress.tasks.length}</span>
             </div>
             
             <div className="add-task">
               <input 
                 type="text" 
-                placeholder="Adicionar tarefa executiva..." 
+                placeholder="Nova tarefa..." 
                 value={newTask.title}
                 onChange={(e) => setNewTask({...newTask, title: e.target.value})}
                 onKeyPress={(e) => e.key === 'Enter' && addTask()}
@@ -473,23 +492,64 @@ const DevelopmentManager = ({ mentorships, notify }) => {
                   <button onClick={() => removeTask(task.id)} className="delete-task-btn">
                     <span className="material-symbols-outlined">delete_outline</span>
                   </button>
-                  
-                  <textarea 
-                    placeholder="Adicionar feedback ou ajuste estratégico..."
-                    value={task.feedback}
-                    onChange={(e) => {
-                      const newTasks = progress.tasks.map(t => t.id === task.id ? {...t, feedback: e.target.value} : t);
-                      setProgress({...progress, tasks: newTasks});
-                    }}
-                    onBlur={() => handleUpdateProgress({ tasks: progress.tasks })}
-                    className="task-feedback"
-                    rows={2}
-                  />
                 </div>
               ))}
-              {progress.tasks.length === 0 && (
-                <p className="empty-message">Nenhuma tarefa adicionada. Comece criando seu plano de ação!</p>
-              )}
+            </div>
+          </section>
+
+          {/* Link da Imagem */}
+          <section className="card material-card-new">
+            <h4 className="section-title">
+              <span className="material-symbols-outlined">image</span>
+              Banner Visual
+            </h4>
+            <div className="image-url-management">
+                <div className="input-group-hybrid">
+                    <input 
+                      type="text" 
+                      placeholder="Cole a URL ou use o botão de upload ➔"
+                      value={progress.featuredImage?.type === 'url' ? progress.featuredImage.url : ''}
+                      onChange={(e) => handleImageUrlChange(e.target.value)}
+                      className="url-input-field"
+                    />
+                    <button 
+                        className="upload-trigger-btn"
+                        onClick={() => fileInputRef.current.click()}
+                        disabled={uploading}
+                    >
+                        <span className="material-symbols-outlined">
+                            {uploading ? 'sync' : 'cloud_upload'}
+                        </span>
+                    </button>
+                </div>
+
+                <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" style={{ display: 'none' }} />
+
+                {uploading && (
+                    <div className="mini-progress-bar">
+                        <div className="mini-progress-fill" style={{ width: `${uploadProgress}%` }}></div>
+                    </div>
+                )}
+              
+              <div className="image-preview-container-mini" style={{ marginTop: '1rem' }}>
+                {progress.featuredImage?.url ? (
+                  <img 
+                    src={progress.featuredImage.url} 
+                    alt="Preview" 
+                    className="featured-preview-mini" 
+                    onError={(e) => {
+                        if (progress.featuredImage.type === 'url') {
+                            e.target.src = 'https://placehold.co/600x400?text=Link+Invalido';
+                        }
+                    }}
+                  />
+                ) : (
+                  <div className="empty-preview-placeholder" onClick={() => fileInputRef.current.click()} style={{ cursor: 'pointer' }}>
+                    <span className="material-symbols-outlined">add_photo_alternate</span>
+                    <p>Clique ou cole um link</p>
+                  </div>
+                )}
+              </div>
             </div>
           </section>
         </div>
@@ -571,18 +631,94 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           cursor: pointer;
         }
         
-        /* Grid */
+        /* Grid Redistribuído */
         .two-columns {
           display: grid;
-          grid-template-columns: 1fr 1.6fr;
+          grid-template-columns: 1.8fr 1fr;
           gap: 1.5rem;
         }
         
-        .left-column,
-        .right-column {
+        .main-column,
+        .side-column {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
+        }
+
+        .input-group-hybrid {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 0.5rem;
+        }
+
+        .upload-trigger-btn {
+          background: #735b25;
+          color: white;
+          border: none;
+          padding: 0 16px;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .upload-trigger-btn:hover { background: #5a461d; transform: scale(1.02); }
+        .upload-trigger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .mini-progress-bar {
+          height: 3px;
+          width: 100%;
+          background: #eee;
+          border-radius: 2px;
+          margin: 8px 0;
+          overflow: hidden;
+        }
+
+        .mini-progress-fill {
+          height: 100%;
+          background: #735b25;
+          transition: width 0.3s;
+        }
+
+        .image-preview-container-mini {
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 16px;
+          overflow: hidden;
+          background: var(--surface-container-highest);
+          border: 1px solid var(--outline-variant);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s;
+        }
+
+        .image-preview-container-mini:hover { border-color: #735b25; }
+
+        .featured-preview-mini {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+
+        .empty-preview-placeholder {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          opacity: 0.3;
+        }
+
+        .empty-preview-placeholder span { font-size: 32px; }
+        .empty-preview-placeholder p { fontSize: 0.65rem; font-weight: bold; }
+
+        @media (max-width: 1024px) {
+          .two-columns {
+            grid-template-columns: 1fr;
+          }
         }
         
         /* Cards */
@@ -608,19 +744,82 @@ const DevelopmentManager = ({ mentorships, notify }) => {
           font-size: 18px;
         }
         
-        .objective-input {
+        /* SWOT Grid */
+        .swot-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        
+        .swot-item {
+          background: var(--surface-container-lowest);
+          padding: 12px;
+          border-radius: 16px;
+          border: 1px solid var(--outline-variant);
+        }
+        
+        .swot-item label {
+          display: block;
+          font-size: 0.65rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 8px;
+        }
+        
+        .strengths label { color: #22c55e; }
+        .weaknesses label { color: #dc2626; }
+        .opportunities label { color: #3b82f6; }
+        .threats label { color: #f59e0b; }
+        
+        .swot-item textarea {
+          width: 100%;
+          background: transparent;
+          border: none;
+          font-size: 0.85rem;
+          color: #0b1c30;
+          resize: none;
+          outline: none;
+          min-height: 80px;
+          line-height: 1.4;
+        }
+
+        .future-vision-section {
+          margin-top: 1.5rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid var(--outline-variant);
+        }
+
+        .vision-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          color: #735b25;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 1rem;
+        }
+
+        .vision-label span {
+          font-size: 18px;
+          color: #735b25;
+        }
+
+        .vision-textarea {
           width: 100%;
           background: var(--surface-container-lowest);
-          border: none;
+          border: 1px solid var(--outline-variant);
           padding: 1rem;
-          border-radius: 20px;
-          font-size: clamp(0.9rem, 4vw, 1rem);
+          border-radius: 16px;
+          font-size: 0.95rem;
           font-family: 'Noto Serif', serif;
           font-style: italic;
           color: #0b1c30;
-          resize: vertical;
           outline: none;
-          line-height: 1.5;
+          resize: vertical;
+          line-height: 1.6;
         }
         
         /* Novos Estilos Imagem de Destaque */
@@ -693,52 +892,21 @@ const DevelopmentManager = ({ mentorships, notify }) => {
         .delete-overlay-btn:hover { color: #dc2626; transform: scale(1.1); }
         .edit-overlay-btn:hover { color: var(--primary); transform: scale(1.1); }
         
-        .empty-upload-state {
+        .url-input-field {
           width: 100%;
-          aspect-ratio: 16/9;
-          border: 2px dashed var(--outline-variant);
-          border-radius: 20px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          cursor: pointer;
+          background: var(--surface-container-lowest);
+          border: 1px solid var(--outline-variant);
+          padding: 12px 16px;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          color: #0b1c30;
+          outline: none;
           transition: all 0.3s;
         }
-        
-        .empty-upload-state:hover {
-          background: var(--surface-container-lowest);
+
+        .url-input-field:focus {
           border-color: #735b25;
-        }
-        
-        .empty-upload-state span {
-          font-size: 40px;
-          color: #735b25;
-        }
-        
-        .empty-upload-state p {
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: var(--on-surface-variant);
-        }
-        
-        .upload-progress-micro {
-          margin-top: 1rem;
-        }
-        
-        .progress-bar-micro {
-          height: 4px;
-          width: 100%;
-          background: #eee;
-          border-radius: 2px;
-          overflow: hidden;
-        }
-        
-        .progress-fill-micro {
-          height: 100%;
-          background: #735b25;
-          transition: width 0.3s;
+          box-shadow: 0 0 0 3px rgba(115, 91, 37, 0.1);
         }
 
         .spin {

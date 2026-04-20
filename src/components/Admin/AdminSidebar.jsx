@@ -6,8 +6,8 @@ const AdminSidebar = ({ activeTab, setActiveTab, onLogout }) => {
     { id: 'brand', label: 'Conteúdo & Identidade', icon: 'auto_awesome' },
     { id: 'content', label: 'Serviços & Preços', icon: 'payments' },
     { id: 'dev_management', label: 'Gestão de Desenvolvimento', icon: 'query_stats' },
-    { id: 'students', label: 'Meus Alunos', icon: 'groups' }
-
+    { id: 'students', label: 'Meus Alunos', icon: 'groups' },
+    { id: 'testimonials', label: 'Vozes de Sucesso', icon: 'format_quote' }
   ];
 
   return (
@@ -30,7 +30,11 @@ const AdminSidebar = ({ activeTab, setActiveTab, onLogout }) => {
         ))}
       </nav>
 
-      <div className="sidebar-footer">
+      <div className="sidebar-footer" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <button onClick={() => window.location.hash = ''} className="btn-sidebar-signout" style={{ background: 'var(--surface-container-highest)', color: 'var(--primary)' }}>
+          <span className="material-symbols-outlined">home</span>
+          Página Inicial
+        </button>
         <button onClick={onLogout} className="btn-sidebar-signout">
           <span className="material-symbols-outlined">logout</span>
           Sair do Painel

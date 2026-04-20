@@ -13,6 +13,7 @@ import BrandManager from './BrandManager';
 import ServiceManager from './ServiceManager';
 import StudentManager from './StudentManager';
 import DevelopmentManager from './DevelopmentManager';
+import TestimonialManager from './TestimonialManager';
 
 const AdminDashboard = () => {
   const { logout } = useAuth();
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
       case 'content': return <ServiceManager courses={data.courses} onUpdate={() => syncData('content')} notify={notify} />;
       case 'students': return <StudentManager mentorships={data.mentorships} />;
       case 'dev_management': return <DevelopmentManager mentorships={data.mentorships} notify={notify} />;
+      case 'testimonials': return <TestimonialManager notify={notify} />;
       default: return null;
     }
   };
@@ -102,7 +104,8 @@ const getTabLabel = (id) => {
     'brand': 'Conteúdo & Identidade',
     'content': 'Serviços & Preços',
     'students': 'Meus Alunos',
-    'dev_management': 'Gestão de Desenvolvimento'
+    'dev_management': 'Gestão de Desenvolvimento',
+    'testimonials': 'Depoimentos (Vozes de Sucesso)'
   };
   return mapping[id] || id;
 };
