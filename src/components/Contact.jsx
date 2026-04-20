@@ -96,7 +96,7 @@ const Contact = ({ selectedPackage, onPayment }) => {
               <span className="material-symbols-outlined" style={{ fontSize: '40px' }}>check_circle</span>
             </div>
             <h2 style={{ fontFamily: 'Noto Serif', marginBottom: '1rem' }}>Sessão Reservada!</h2>
-            <p style={{ color: '#64748b', marginBottom: '2.5rem' }}>O link da sua reunião no Google Meet foi enviado para seu e-mail corporativo. Por favor, verifique sua caixa de entrada.</p>
+            <p style={{ color: '#64748b', marginBottom: '2.5rem' }}>O link da sua reunião no Google Meet foi enviado para seu e-mail. Por favor, verifique sua caixa de entrada.</p>
             
             <div className="payment-action-box" style={{ padding: '2rem', background: '#f8fafc', borderRadius: '24px', border: '1px solid #e1e8f0' }}>
               {isPix ? (
@@ -136,7 +136,7 @@ const Contact = ({ selectedPackage, onPayment }) => {
                 />
               </div>
               <div className="form-group">
-                <label>WhatsApp Corporativo</label>
+                <label>WhatsApp</label>
                 <input 
                   type="text" 
                   required 
@@ -150,7 +150,7 @@ const Contact = ({ selectedPackage, onPayment }) => {
               </div>
             </div>
             <div className="form-group" style={{ marginBottom: '2rem' }}>
-              <label>E-mail de Trabalho</label>
+              <label>E-mail</label>
               <input 
                 type="email" 
                 required 
