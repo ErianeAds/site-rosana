@@ -14,15 +14,17 @@ import ServiceManager from './ServiceManager';
 import StudentManager from './StudentManager';
 import DevelopmentManager from './DevelopmentManager';
 import TestimonialManager from './TestimonialManager';
+import LGPDAcceptance from './LGPDAcceptance';
 
 const AdminDashboard = () => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('agenda');
   const [data, setData] = useState({
     mentorships: [],
     courses: [],
     siteContent: {}
   });
+  const [lgpdAccepted, setLgpdAccepted] = useState(user?.lgpdAccepted || false);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
 
@@ -69,8 +71,12 @@ const AdminDashboard = () => {
     }
   };
 
+  if (!lgpdAccepted) {
+    return <LGPDAcceptance user={user} onAccept={() => setLgpdAccepted(true)} />;
+  }
+
   return (
-    <div className="admin-app-layout">
+    <div className="admin-dashboard-layout">
       <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={logout} />
       
       <main className="admin-main-viewport">
