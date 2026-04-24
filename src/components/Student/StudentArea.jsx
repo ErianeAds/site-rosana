@@ -5,7 +5,8 @@ import {
     getSiteContent, 
     getStudentProgress, 
     updateStudentProgress,
-    getCourses 
+    getCourses,
+    analyzeSentiment
 } from '../../firebase/services';
 import CalendarPicker from '../CalendarPicker';
 import JourneyCalendar from './JourneyCalendar';
@@ -122,12 +123,17 @@ const StudentArea = () => {
   const submitTestimonial = async () => {
       if (!testimonial.trim()) return;
       try {
+          // Perform sentiment analysis before saving
+          const { sentiment, confidence } = await analyzeSentiment(testimonial);
+
           await addDoc(collection(db, 'testimonials'), {
               studentId: user.uid,
               studentName: user.displayName,
               studentPhoto: user.photoURL || '',
               content: testimonial,
               status: 'pending', // Waiting for admin approval
+              sentiment: sentiment,
+              confidence: confidence,
               createdAt: new Date().toISOString()
           });
           setHasSubmittedTestimonial(true);

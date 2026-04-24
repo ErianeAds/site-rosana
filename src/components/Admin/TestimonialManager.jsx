@@ -69,17 +69,40 @@ const TestimonialManager = ({ notify }) => {
                   </div>
                   <div>
                     <h4 style={{ margin: 0, fontSize: '1rem' }}>{item.studentName}</h4>
-                    <span style={{ 
-                        fontSize: '0.65rem', 
-                        padding: '4px 10px', 
-                        borderRadius: '100px', 
-                        background: item.status === 'approved' ? '#dcfce7' : '#fef9c3',
-                        color: item.status === 'approved' ? '#166534' : '#854d0e',
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase'
-                    }}>
-                        {item.status === 'approved' ? 'Aprovado (Visível)' : 'Pendente de Aprovação'}
-                    </span>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '4px' }}>
+                        <span style={{ 
+                            fontSize: '0.65rem', 
+                            padding: '4px 10px', 
+                            borderRadius: '100px', 
+                            background: item.status === 'approved' ? '#dcfce7' : '#fef9c3',
+                            color: item.status === 'approved' ? '#166534' : '#854d0e',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase'
+                        }}>
+                            {item.status === 'approved' ? 'Aprovado (Visível)' : 'Pendente de Aprovação'}
+                        </span>
+                        
+                        {item.sentiment && (
+                            <span style={{ 
+                                fontSize: '0.65rem', 
+                                padding: '4px 10px', 
+                                borderRadius: '100px', 
+                                background: item.sentiment.toLowerCase() === 'positive' ? '#ecfdf5' : item.sentiment.toLowerCase() === 'negative' ? '#fef2f2' : '#f3f4f6',
+                                color: item.sentiment.toLowerCase() === 'positive' ? '#059669' : item.sentiment.toLowerCase() === 'negative' ? '#dc2626' : '#6b7280',
+                                fontWeight: 'bold',
+                                border: '1px solid currentColor',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                            }}>
+                                <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>
+                                    {item.sentiment.toLowerCase() === 'positive' ? 'mood' : item.sentiment.toLowerCase() === 'negative' ? 'mood_bad' : 'help'}
+                                </span>
+                                {item.sentiment === 'pending_analysis' ? 'Análise Pendente' : item.sentiment}
+                                {item.confidence > 0 && ` (${Math.round(item.confidence * 100)}%)`}
+                            </span>
+                        )}
+                    </div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>

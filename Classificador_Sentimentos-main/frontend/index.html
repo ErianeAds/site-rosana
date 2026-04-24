@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de Sentimentos Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-layout">
+        <div class="container glass-panel">
+            <header>
+                <h1>Analisador de Sentimentos</h1>
+                <p>Digite uma frase em inglês e descubra a emoção por trás dela.</p>
+            </header>
+
+            <main>
+                <div class="input-group">
+                    <textarea id="textInput" placeholder="Ex: I absolutely love this project! It's fantastic." rows="4"></textarea>
+                </div>
+                
+                <button id="analyzeBtn" class="btn-primary">
+                    <span class="btn-text">Analisar Sentimento</span>
+                    <div class="loader" id="btnLoader" style="display: none;"></div>
+                </button>
+
+                <div id="resultCard" class="result-card hidden">
+                    <div class="result-icon" id="resultIcon">✨</div>
+                    <div class="result-content">
+                        <h2 id="emotionLabel">Analisando...</h2>
+                        <p id="confidenceText" class="confidence-text"></p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <aside class="history-sidebar glass-panel">
+            <div class="history-header">
+                <h2>Histórico</h2>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span id="historyCount" class="badge">0</span>
+                    <button id="clearHistoryBtn" class="delete-btn" title="Limpar todo o histórico">🗑️</button>
+                </div>
+            </div>
+            <div id="historyList" class="history-list">
+                <p class="empty-history">Nenhuma análise feita ainda.</p>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

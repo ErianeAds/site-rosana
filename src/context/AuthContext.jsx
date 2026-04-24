@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
           
-          const isAdminEmail = firebaseUser.email === 'rolbrito1320@gmail.com' || firebaseUser.email === 'carreiras@rosanalbrito.com.br';
+          const isAdminEmail = firebaseUser.email === 'eriane.adsfecap@gmail.com' || firebaseUser.email === 'carreiras@rosanalbrito.com.br';
 
           setUser({
             ...firebaseUser,

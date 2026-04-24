@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     function isAdmin() {
-      return request.auth != null && (request.auth.token.email == 'rolbrito1320@gmail.com' || request.auth.token.email == 'carreiras@rosanalbrito.com.br');
+      return request.auth != null && (request.auth.token.email == 'eriane.adsfecap@gmail.com' || request.auth.token.email == 'carreiras@rosanalbrito.com.br');
     }
 
     // Regras para a coleção de cursos/preços

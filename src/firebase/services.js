@@ -157,3 +157,27 @@ export const deleteFile = async (path) => {
   const fileRef = ref(storage, path);
   await deleteObject(fileRef);
 };
+
+// Sentiment Analysis Service (Local Python API)
+export const analyzeSentiment = async (text) => {
+  try {
+    const response = await fetch('http://localhost:8000/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
+    
+    if (!response.ok) throw new Error('API offline');
+    
+    const data = await response.json();
+    return {
+      sentiment: data.emotion, // Assuming 'emotion' field from main.py
+      confidence: data.confidence
+    };
+  } catch (error) {
+    console.warn("Sentiment Analysis API is not running. Falling back to pending.");
+    return { sentiment: 'pending_analysis', confidence: 0 };
+  }
+};
